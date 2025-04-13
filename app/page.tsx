@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Hero from "./components/Hero";
 import Header from "./components/Header";
+import ServicesSection from "./components/Services";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
 
         {/* Hero Section */}
         <Hero />
+        <ServicesSection />
         
 
 
