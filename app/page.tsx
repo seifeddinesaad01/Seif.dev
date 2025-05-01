@@ -2,6 +2,7 @@ import Head from "next/head";
 import Hero from "./components/Hero";
 import Header from "./components/Header";
 import ServicesSection from "./components/Services";
+import WhyChooseMe from "./components/WhyChooseMe";
 
 export default function Home() {
   return (
@@ -25,13 +26,10 @@ export default function Home() {
       >
         {/* Navbar */}
         <Header />
-
         {/* Hero Section */}
         <Hero />
         <ServicesSection />
-        
-
-
+        <WhyChooseMe />
       </main>
     </div>
   );
