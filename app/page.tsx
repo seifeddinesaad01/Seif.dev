@@ -22,7 +22,7 @@ export default function Home() {
         Feel free to choose any gradient or color palette you like.
       */}
       <main
-        className="min-h-screen bg-gradient-to-br from-white to-[#eef2ff] flex flex-col"
+        className="min-h-screen bg-gradient-to-tr flex flex-col"
       >
         {/* Navbar */}
         <Header />
