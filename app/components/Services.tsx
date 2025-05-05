@@ -132,7 +132,7 @@ export default function ServicesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex flex-col items-start transition-transform duration-300 hover:scale-[1.03] hover:shadow-md"
+              className="p-2 flex flex-col items-start transition-transform duration-300 hover:scale-[1.03] hover:shadow-md"
             >
               <div className={`${feature.iconBg} p-2 rounded-lg mb-4`}>
                 {feature.icon}

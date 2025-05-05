@@ -14,7 +14,7 @@ import React from 'react';
 
 export default function WhyChooseMe() {
   return (
-    <section className="bg-gray-50 w-full py-20">
+    <section className=" w-full py-20">
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Top Badge */}
         <div className="flex justify-center mb-6">
@@ -73,7 +73,7 @@ export default function WhyChooseMe() {
         </div>
 
         {/* Testimonial Section */}
-        <div className="relative max-w-3xl mx-auto bg-white p-10 rounded-2xl shadow-md">
+        <div className="relative max-w-3xl mx-auto  p-10 rounded-2xl shadow-md">
           <Quote className="absolute -top-5 -right-5 text-pink-500 w-10 h-10" aria-hidden="true" />
           <p className="italic text-gray-800 text-lg mb-6 leading-relaxed">
             "Seif is not a normal freelancer. He is the best I've ever worked with. Communication and abilities in the

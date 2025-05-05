@@ -3,6 +3,8 @@ import Hero from "./components/Hero";
 import Header from "./components/Header";
 import ServicesSection from "./components/Services";
 import WhyChooseMe from "./components/WhyChooseMe";
+import ContactSection from "./components/ContactSession";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
@@ -14,15 +16,8 @@ export default function Home() {
           content="Expert full-stack developer specializing in rapid MVP development and AI integration."
         />
       </Head>
-
-      {/* 
-        Container for the entire page with a gradient background.
-        I've used a subtle lilac-to-blue gradient, 
-        and a cool accent color (#7C3AED, which is a nice purple).
-        Feel free to choose any gradient or color palette you like.
-      */}
       <main
-        className="min-h-screen bg-gradient-to-tr flex flex-col"
+        className="min-h-screen  flex flex-col"
       >
         {/* Navbar */}
         <Header />
@@ -30,6 +25,8 @@ export default function Home() {
         <Hero />
         <ServicesSection />
         <WhyChooseMe />
+        <ContactSection />
+        <Footer />
       </main>
     </div>
   );
