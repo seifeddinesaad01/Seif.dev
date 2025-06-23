@@ -89,7 +89,7 @@ export default function ServicesSection() {
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         {/* Badge */}
         <div className="flex justify-center mb-2">
-          <div className="bg-blue-50 text-blue-700 px-4 py-1 rounded-full text-sm font-medium flex items-center">
+          <div className="bg-blue-100 text-blue-800  px-4 py-1 rounded-full text-sm font-medium flex items-center">
             <Star className="w-4 h-4 mr-2" />
             Expert Full Stack Development Services
           </div>

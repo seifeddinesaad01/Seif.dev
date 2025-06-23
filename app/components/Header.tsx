@@ -15,7 +15,7 @@ const links = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Meet Team', href: '/team' },
+  { label: 'Hire Me', href: '/hire-me' },
 ];
 
 const Header = () => {
@@ -27,7 +27,9 @@ const Header = () => {
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
         <div className="container mx-auto py-4 px-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="text-xl font-semibold text-gray-900">seif.dev</div>
+          <div className="text-xl font-semibold text-gray-900">
+            <span className="text-pink-500">seif</span>.dev
+          </div>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-6">
@@ -38,11 +40,10 @@ const Header = () => {
                   <li key={label}>
                     <Link
                       href={href}
-                      className={`px-3 py-2 transition-colors ${
-                        isActive
-                          ? 'text-purple-600 border-b-2 border-purple-600'
-                          : 'text-muted-foreground hover:text-gray-900 hover:bg-gray-100'
-                      }`}
+                      className={`px-3 py-2 transition-colors ${isActive
+                          ? 'text-pink-500  border-pink-500'
+                          : 'text-muted-foreground hover:text-pink-600 '
+                        }`}
                     >
                       {label}
                     </Link>
@@ -50,7 +51,7 @@ const Header = () => {
                 );
               })}
             </ul>
-            <Button className="rounded-md px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white">
+            <Button className="rounded-md px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white">
               Get in Touch
             </Button>
           </div>
@@ -68,9 +69,8 @@ const Header = () => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <div className="flex justify-between items-center p-4 border-b border-gray-200">
           <span className="text-xl font-semibold text-gray-900">Menu</span>
@@ -89,16 +89,15 @@ const Header = () => {
               key={label}
               href={href}
               onClick={() => setIsOpen(false)}
-              className={`${
-                pathname === href
-                  ? 'text-purple-600 underline'
-                  : 'text-gray-800 hover:text-purple-600'
-              }`}
+              className={`${pathname === href
+                  ? 'text-pink-600 underline'
+                  : 'text-gray-800 hover:text-pink-600'
+                }`}
             >
               {label}
             </Link>
           ))}
-          <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 mt-4">
+          <Button className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 mt-4">
             Get in Touch
           </Button>
 

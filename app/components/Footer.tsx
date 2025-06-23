@@ -56,8 +56,8 @@ const Footer: React.FC = () => {
             </span>
             <h4 className="text-xl font-bold mb-2">Ready to Start?</h4>
             <p className="text-gray-600 mb-4 text-sm">I might have the solution to your problems.</p>
-            <Button asChild>
-              <Link href="/#contact">Start Your Project <ArrowUp className="w-4 h-4 ml-2" /></Link>
+            <Button className='bg-pink-500 hover:bg-pink-600 text-white' asChild>
+              <Link href="/hire-me" >Start Your Project <ArrowUp className="w-4 h-4 ml-2" /></Link>
             </Button>
           </div>
         </div>

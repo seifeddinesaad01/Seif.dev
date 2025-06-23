@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import {
   Award,
   Clock,
@@ -76,19 +77,21 @@ export default function WhyChooseMe() {
         <div className="relative max-w-3xl mx-auto  p-10 rounded-2xl shadow-md">
           <Quote className="absolute -top-5 -right-5 text-pink-500 w-10 h-10" aria-hidden="true" />
           <p className="italic text-gray-800 text-lg mb-6 leading-relaxed">
-            "Seif is not a normal freelancer. He is the best I've ever worked with. Communication and abilities in the
-            English language is master class. Deadline was perfectly matched and his work is outstanding! We will keep
-            working together."
+            "Seif is an awesome upworker. A pleasure to deal with and always has a positive attitude. Even when things get rough, Seif is always there to back you up. Well recommend"
           </p>
           <div className="flex justify-between items-center">
             <div>
-              <p className="font-bold text-gray-900">Tim Nijland</p>
-              <p className="text-sm text-gray-600">Founder, Storied</p>
+              <p className="font-bold text-gray-900">Matt Guiver</p>
+              <p className="text-sm text-gray-600">Founder, Picturespark</p>
             </div>
-            <Link href="#" className="text-blue-600 flex items-center text-sm hover:underline">
-              View all Peers
+            <Button
+            
+              onClick={() => window.open('https://www.upwork.com/freelancers/seifeddines01', '_blank')}
+
+              className="text-pink-700 hover:text-pink-700 hover:bg-pink-100 cursor-pointer bg-pink-100 p-2 rounded-xl flex items-center text-sm hover:underline">
+              View on Upwork
               <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" />
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

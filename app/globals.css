@@ -116,6 +116,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-gradient-to-r text-foreground;
+    /* @apply bg-gradient-to-r from-white to-blue-100 text-foreground; */
   }
 }
