@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Briefcase, Rocket, Code } from 'lucide-react';
+import { Sparkles, Briefcase, Rocket, CodeXml } from 'lucide-react';
 
 const skills = [
   {
@@ -47,7 +47,7 @@ const TechnicalArsenal = () => {
               <ul className="space-y-2">
                 {group.items.map((tech) => (
                   <li key={tech} className="flex items-center text-sm text-gray-700 dark:text-gray-300">
-                    <Code className="w-4 h-4 mr-2 text-pink-500" /> {tech}
+                    <CodeXml className="w-4 h-4 mr-2 text-blue-500" /> {tech}
                   </li>
                 ))}
               </ul>

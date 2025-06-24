@@ -21,9 +21,9 @@ export default function ServicesSection() {
         "Transform your idea into a working product in weeks, not months. AI-powered development for faster iterations and market validation.",
       icons: [
         <Rocket key="1" className="w-6 h-6 text-blue-600" />,
-        <Rocket key="2" className="w-6 h-6 text-pink-500 rotate-45" />,
+        <Rocket key="2" className="w-6 h-6 text-blue-500 rotate-45" />,
       ],
-      iconBg: ["bg-blue-100", "bg-pink-100"],
+      iconBg: ["bg-blue-100", "bg-blue-100"],
     },
     {
       title: "AI Integration",

@@ -1,9 +1,11 @@
 import React from "react";
+import BlogList from "./components/BlockList";
+import Footer from "../components/Footer";
 
 const BlogPage = () => (
   <main className="container mx-auto py-12 px-4">
-    <h1 className="text-4xl font-bold mb-4">Blog</h1>
-    <p className="text-lg text-gray-700">Welcome to the Blog! Posts will appear here soon.</p>
+    <BlogList />
+    <Footer />
   </main>
 );
 

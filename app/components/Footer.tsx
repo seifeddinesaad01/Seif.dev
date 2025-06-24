@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           {/* Brand & Motto */}
           <div>
             <h3 className="text-xl font-bold">
-              <span className="text-pink-500">seif</span>.dev
+              <span className="text-blue-500">seif</span>.dev
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
@@ -35,9 +35,9 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/about" className="hover:text-pink-500">About</Link></li>
-              <li><Link href="/blog" className="hover:text-pink-500">Blog</Link></li>
-              <li><Link href="/hire" className="hover:text-pink-500">Hire Me</Link></li>
+              <li><Link href="/about" className="hover:text-blue-500">About</Link></li>
+              <li><Link href="/blog" className="hover:text-blue-500">Blog</Link></li>
+              <li><Link href="/hire-me" className="hover:text-blue-500">Hire Me</Link></li>
             </ul>
           </div>
 
@@ -45,18 +45,18 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">More</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/faq" className="hover:text-pink-500">FAQ</Link></li>
+              <li><Link href="/faq" className="hover:text-blue-500">FAQ</Link></li>
             </ul>
           </div>
 
           {/* CTA Card */}
           <div className="bg-gray-50 rounded-xl p-6">
-            <span className="inline-flex items-center bg-pink-100 text-pink-500 rounded-full px-3 py-1 text-xs font-medium mb-4">
+            <span className="inline-flex items-center bg-blue-100 text-blue-500 rounded-full px-3 py-1 text-xs font-medium mb-4">
               <Hash className="w-4 h-4 mr-1" /> Available for Projects
             </span>
             <h4 className="text-xl font-bold mb-2">Ready to Start?</h4>
             <p className="text-gray-600 mb-4 text-sm">I might have the solution to your problems.</p>
-            <Button className='bg-pink-500 hover:bg-pink-600 text-white' asChild>
+            <Button className='bg-blue-500 hover:bg-blue-600 text-white' asChild>
               <Link href="/hire-me" >Start Your Project <ArrowUp className="w-4 h-4 ml-2" /></Link>
             </Button>
           </div>
@@ -68,14 +68,12 @@ const Footer: React.FC = () => {
         {/* Social & Back to Top */}
         <div className="flex flex-col items-center space-y-4">
           <div className="flex space-x-4 text-gray-500">
-            <Link href="https://github.com/yourusername" aria-label="GitHub"><Github className="w-5 h-5 hover:text-gray-900" /></Link>
-            <Link href="https://linkedin.com/in/yourusername" aria-label="LinkedIn"><Linkedin className="w-5 h-5 hover:text-blue-600" /></Link>
-            <Link href="https://twitter.com/yourusername" aria-label="Twitter"><Twitter className="w-5 h-5 hover:text-blue-400" /></Link>
-            <Link href="https://yourforum.com" aria-label="Discussion"><MessageCircle className="w-5 h-5 hover:text-gray-900" /></Link>
-            <Hash className="w-5 h-5" />
-            <Link href="https://instagram.com/yourusername" aria-label="Instagram"><Instagram className="w-5 h-5 hover:text-pink-500" /></Link>
-            <Link href="https://facebook.com/yourusername" aria-label="Facebook"><Facebook className="w-5 h-5 hover:text-blue-800" /></Link>
-            <Link href="https://readthedocs.org/projects/yourproject" aria-label="Docs"><BookOpen className="w-5 h-5 hover:text-gray-900" /></Link>
+            <Link href="https://github.com/seifeddinesaad01" aria-label="GitHub"><Github className="w-5 h-5 hover:text-gray-900" /></Link>
+            <Link href="https://www.linkedin.com/in/seif-eddine-saad-3728aa19b" aria-label="LinkedIn"><Linkedin className="w-5 h-5 hover:text-blue-600" /></Link>
+            <Link href="https://x.com/Saif71564790" aria-label="Twitter"><Twitter className="w-5 h-5 hover:text-blue-400" /></Link>
+            <Link href="https://instagram.com/yourusername" aria-label="Instagram"><Instagram className="w-5 h-5 hover:text-blue-500" /></Link>
+            <Link href="https://www.facebook.com/saiiif001" aria-label="Facebook"><Facebook className="w-5 h-5 hover:text-blue-800" /></Link>
+            <Link href="https://dev.to/seif_eddine_saad" aria-label="Docs"><BookOpen className="w-5 h-5 hover:text-gray-900" /></Link>
           </div>
           <button onClick={scrollToTop} className="p-2 bg-gray-100 rounded-full hover:bg-gray-200">
             <ArrowUp className="w-5 h-5 text-gray-600" />

@@ -28,8 +28,8 @@ const Header = () => {
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
         <div className="container mx-auto py-4 px-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="text-xl font-semibold text-gray-900">
-            <span className="text-pink-500">seif</span>.dev
+          <div className="text-xl font-semibold text-gray-900 cursor-pointer group">
+            <span className="text-blue-500">seif</span><span className='transform transition-all duration-250 ease-out group-hover:pl-1'>.dev</span>
           </div>
 
           {/* Desktop Links */}
@@ -42,8 +42,8 @@ const Header = () => {
                     <Link
                       href={href}
                       className={`px-3 py-2 transition-colors ${isActive
-                          ? 'text-pink-500  border-pink-500'
-                          : 'text-muted-foreground hover:text-pink-600 '
+                          ? 'text-blue-500  border-blue-500'
+                          : 'text-muted-foreground hover:text-blue-600 '
                         }`}
                     >
                       {label}
@@ -52,7 +52,7 @@ const Header = () => {
                 );
               })}
             </ul>
-            <Button className="rounded-md px-6 py-2 bg-pink-500 hover:bg-pink-600 text-white">
+            <Button className="rounded-md px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white">
               Get in Touch
             </Button>
           </div>
@@ -91,14 +91,14 @@ const Header = () => {
               href={href}
               onClick={() => setIsOpen(false)}
               className={`${pathname === href
-                  ? 'text-pink-600 underline'
-                  : 'text-gray-800 hover:text-pink-600'
+                  ? 'text-blue-600 underline'
+                  : 'text-gray-800 hover:text-blue-600'
                 }`}
             >
               {label}
             </Link>
           ))}
-          <Button className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 mt-4">
+          <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 mt-4">
             Get in Touch
           </Button>
 

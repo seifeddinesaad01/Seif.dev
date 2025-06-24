@@ -27,11 +27,11 @@ const Hero = () => {
                 <Button
                     size="lg"
                     variant="default"
-                    className="group bg-pink-500 hover:bg-pink-600 rounded-xl px-8 py-6 font-semibold cursor-pointer transform transition-all duration-150 ease-out hover:shadow-2xl"
+                    className="group bg-blue-700 hover:bg-blue-600 rounded-xl px-8 py-6 font-semibold cursor-pointer transform transition-all duration-150 ease-out hover:shadow-2xl"
                 >
-                    <Link href="/hire-me" className="flex items-center gap-2 transition-all duration-150 ease-out group-hover:gap-4">
+                    <Link href="/hire-me" className="flex items-center gap-2">
                         <span>Request CV</span>
-                        <Download className="w-5 h-5 text-white" />
+                        <Download className="w-5 h-5 text-white group-hover:mt-1.5 transition-all duration-150 ease-out" />
                     </Link>
                 </Button>
 

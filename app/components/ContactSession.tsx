@@ -12,7 +12,7 @@ const ContactSection: React.FC = () => {
         <div className="flex flex-col lg:flex-row lg:space-x-20 space-y-12 lg:space-y-0">
           {/* Left Side */}
           <div className="lg:w-1/2">
-            <span className="inline-flex items-center bg-pink-100 text-pink-500 rounded-full px-4 py-1 text-sm font-medium mb-4">
+            <span className="inline-flex items-center bg-blue-100 text-blue-500 rounded-full px-4 py-1 text-sm font-medium mb-4">
               <Zap className="w-5 h-5 mr-2" />
               Let&apos;s Create Something Amazing
             </span>
@@ -121,7 +121,7 @@ const ContactSection: React.FC = () => {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full py-4 font-semibold bg-pink-500 hover:bg-pink-600">
+                  <Button type="submit" className="w-full py-4 font-semibold bg-blue-500 hover:bg-blue-600">
                     Submit
                   </Button>
                 </form>

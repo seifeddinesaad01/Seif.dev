@@ -2,16 +2,15 @@
 "use client";
 
 import {
-    Github ,
+    Github,
     Linkedin,
     Twitter,
-    MessageCircle as Discord,
-    Hash as Threads,
+    Braces as DevIcon,
     Instagram,
     Facebook,
-    BookOpen as Reddit,
 } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface Social {
     id: string;
@@ -19,7 +18,8 @@ interface Social {
     description: string;
     href: string;
     Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-    color: string; // Tailwind arbitrary color
+    color: string;
+    bgColor: string;
 }
 
 const socials: Social[] = [
@@ -27,121 +27,143 @@ const socials: Social[] = [
         id: "github",
         title: "GitHub",
         description: "Check out my open-source contributions and personal projects",
-        href: "https://github.com/yourusername",
+        href: "https://github.com/seifeddinesaad01",
         Icon: Github,
         color: "#181717",
+        bgColor: "bg-gray-800",
+    },
+    {
+        id: "dev",
+        title: "DEV.to",
+        description: "Read my articles and tutorials on DEV.to",
+        href: "https://dev.to/seif_eddine_saad",
+        Icon: DevIcon,
+        color: "#3b49df",
+        bgColor: "bg-gradient-to-br from-indigo-600 to-blue-500",
     },
     {
         id: "linkedin",
         title: "LinkedIn",
         description: "Connect with me professionally and see my career journey",
-        href: "https://linkedin.com/in/yourusername",
+        href: "https://www.linkedin.com/in/seif-eddine-saad-3728aa19b/",
         Icon: Linkedin,
         color: "#0A66C2",
-    },
-    {
-        id: "twitter",
-        title: "X (Twitter)",
-        description: "Follow me for tech insights and development tips",
-        href: "https://twitter.com/yourusername",
-        Icon: Twitter,
-        color: "red",
-    },
-    {
-        id: "discord",
-        title: "Discord",
-        description: "Join our developer community and discussions",
-        href: "https://discord.gg/yourinvite",
-        Icon: Discord,
-        color: "#5865F2",
-    },
-    {
-        id: "threads",
-        title: "Threads",
-        description: "Follow my development journey and daily updates",
-        href: "https://threads.net/yourusername",
-        Icon: Threads,
-        color: "#000000",
-    },
-    {
-        id: "instagram",
-        title: "Instagram",
-        description: "Behind the scenes of my developer life",
-        href: "https://instagram.com/yourusername",
-        Icon: Instagram,
-        color: "#E1306C",
+        bgColor: "bg-blue-600",
     },
     {
         id: "facebook",
         title: "Facebook",
         description: "Connect with me and join our tech community",
-        href: "https://facebook.com/yourusername",
+        href: "https://www.facebook.com/saiiif001/",
         Icon: Facebook,
         color: "#1877F2",
+        bgColor: "bg-blue-600",
     },
     {
-        id: "reddit",
-        title: "Reddit",
-        description: "Join our technical discussions and AMAs",
-        href: "https://reddit.com/user/yourusername",
-        Icon: Reddit,
-        color: "#FF4500",
+        id: "twitter",
+        title: "X (Twitter)",
+        description: "Follow me for tech insights and development tips",
+        href: "https://x.com/Saif71564790",
+        Icon: Twitter,
+        color: "#000000",
+        bgColor: "bg-black",
     },
+    {
+        id: "instagram",
+        title: "Instagram",
+        description: "Behind the scenes of my developer life",
+        href: "https://www.instagram.com/saiifeddine01/",
+        Icon: Instagram,
+        color: "#E1306C",
+        bgColor: "bg-gradient-to-r from-purple-500 to-pink-500",
+    },
+
+
 ];
 
 export default function StayConnected() {
     return (
-        <section className="py-16 px-4 max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-                <button className="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-medium hover:bg-indigo-200 transition">
-                    Let’s Connect
-                </button>
-                <h2 className="mt-4 text-3xl font-bold">Stay Connected</h2>
-                <p className="mt-2 text-gray-600">
+        <section className="py-16 px-4 max-w-7xl mx-auto bg-gradient-to-b from-white to-pink-50">
+            <div className="text-center mb-16">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="mt-6 text-4xl font-bold bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent"
+                >
+                    Stay Connected
+                </motion.h2>
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="mt-4 text-gray-600 max-w-2xl mx-auto text-lg"
+                >
                     Follow my journey, join the community, and stay updated with my latest projects and insights
-                </p>
+                </motion.p>
+                <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "80px" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full mx-auto mt-6"
+                ></motion.div>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {socials.map(({ id, title, description, href, Icon, color }) => (
-                    <Link
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {socials.map(({ id, title, description, href, Icon, color, bgColor }) => (
+                    <motion.div
                         key={id}
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group block border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-shadow"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.1 * socials.indexOf(socials.find(s => s.id === id)!) }}
+                        className="relative"
                     >
-                        <div
-                            className="w-10 h-10 mb-4 flex items-center justify-center rounded-full bg-gray-100 transition-colors"
-                            style={{}}
+                        <Link
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group block bg-white rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-transparent h-full"
                         >
-                            <Icon
-                                className="w-6 h-6 text-gray-500 transition-colors duration-200"
-                                style={{}}
-                            />
-                        </div>
-                        <h3
-                            className="text-lg font-semibold mb-2 transition-colors duration-200"
-                        >
-                            {title}
-                        </h3>
-                        <p className="text-sm text-gray-500 mb-4">{description}</p>
-                        <span className="inline-flex items-center text-sm font-medium text-gray-700 hover:underline transition-colors duration-200">
-                            Connect&nbsp;
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-4 h-4 inline-block transition-transform duration-200 group-hover:translate-x-1"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </span>
+                            {/* Top accent bar */}
+                            <div
+                                className={`absolute top-0 left-0 w-full h-1 rounded-t-2xl ${bgColor}`}
+                            ></div>
 
-                    </Link>
+                            <div className="flex items-start mb-4">
+                                <div
+                                    className={`w-12 h-12 rounded-xl flex items-center justify-center ${bgColor}`}
+                                >
+                                    <Icon
+                                        className="w-6 h-6 text-white"
+                                    />
+                                </div>
+                            </div>
+
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+                            <p className="text-gray-600 mb-5">{description}</p>
+
+                            <div style={{ color: color }} className="flex items-center text-sm font-medium  transition-colors">
+                                <span>Connect</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-4 h-4 ml-1 inline-block transition-transform duration-300 group-hover:translate-x-1"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </div>
+                        </Link>
+                    </motion.div>
                 ))}
             </div>
+
+
         </section>
     );
 }

@@ -17,3 +17,4 @@ export const stackIcons =[
 ]
 
 export const textsToAnimate = ["AI Powered", "Production Ready", "Future Proof", "Scalable & Secure"];
+
