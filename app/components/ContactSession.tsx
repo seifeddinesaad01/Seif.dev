@@ -1,13 +1,17 @@
-"use client"
+
+
+// ContactSection.tsx
+"use client";
 import React from 'react';
-import { Zap, Clock, Shield, User, ArrowRight } from 'lucide-react';
+import { Zap, Shield, User, ArrowRight, Clock } from 'lucide-react';
 import { SiUpwork } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
 import FadeInSection from './FadeInSection';
+import ContactForm from './ContactForm';
 
 const ContactSection: React.FC = () => {
   return (
-    <FadeInSection >
+    <FadeInSection>
       <section className="max-w-7xl mx-auto px-6 md:px-8 lg:px-16 py-16 lg:py-24">
         <div className="flex flex-col lg:flex-row lg:space-x-20 space-y-12 lg:space-y-0">
           {/* Left Side */}
@@ -55,76 +59,7 @@ const ContactSection: React.FC = () => {
           <div className="lg:w-1/2">
             <div className="p-1 rounded-3xl bg-gradient-to-br from-pink-500 to-blue-600">
               <div className="bg-white rounded-3xl p-8 lg:p-10">
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                        Your Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        placeholder="John Doe"
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Your Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        placeholder="john@example.com"
-                        className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="engagement" className="block text-sm font-medium text-gray-700 mb-2">
-                      Engagement Model
-                    </label>
-                    <select
-                      id="engagement"
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
-                    >
-                      <option disabled defaultValue="">Select Engagement Model</option>
-                      <option value="hourly">Hourly</option>
-                      <option value="fixed">Fixed Price</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-                      Budget Range
-                    </label>
-                    <select
-                      id="budget"
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
-                    >
-                      <option disabled defaultValue="">Select Budget Range</option>
-                      <option value="500-1000">$500 - $1,000</option>
-                      <option value="1000-5000">$1,000 - $5,000</option>
-                      <option value="5000+">$5,000+</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Message
-                    </label>
-                    <textarea
-                      id="message"
-                      placeholder="Your message here..."
-                      className="w-full border border-gray-300 rounded-lg px-4 py-3 h-36 resize-none focus:outline-none focus:ring focus:border-blue-300"
-                    />
-                  </div>
-
-                  <Button type="submit" className="w-full py-4 font-semibold bg-blue-500 hover:bg-blue-600">
-                    Submit
-                  </Button>
-                </form>
+                <ContactForm />
               </div>
             </div>
           </div>
