@@ -12,7 +12,7 @@ import ContactForm from './ContactForm';
 const ContactSection: React.FC = () => {
   return (
     <FadeInSection>
-      <section className="max-w-7xl mx-auto px-6 md:px-8 lg:px-16 py-16 lg:py-24">
+      <section id="contact" className="max-w-7xl mx-auto px-6 md:px-8 lg:px-16 py-16 lg:py-24">
         <div className="flex flex-col lg:flex-row lg:space-x-20 space-y-12 lg:space-y-0">
           {/* Left Side */}
           <div className="lg:w-1/2">

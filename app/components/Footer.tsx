@@ -16,9 +16,9 @@ const Footer: React.FC = () => {
 
           {/* Brand & Motto */}
           <div className="text-center sm:text-left">
-            <h3 className="text-lg sm:text-xl font-bold">
-              <span className="text-blue-500">seif</span>.dev
-            </h3>
+          <div className="text-xl font-semibold text-gray-900 cursor-pointer group">
+            <span className="text-blue-500">seif</span><span className='transform transition-all duration-250 ease-out group-hover:pl-1'>.dev</span>
+          </div>
             <ul className="mt-4 space-y-2 text-xs sm:text-sm">
               <li>
                 Code <span role="img" aria-label="laptop">💻</span> Lift <span role="img" aria-label="strong">💪</span> Solve Problems <span role="img" aria-label="wrench">🛠️</span>
