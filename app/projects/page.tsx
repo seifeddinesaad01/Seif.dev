@@ -1,10 +1,37 @@
-import React from "react";
+"use client";
+import { useState, useEffect } from 'react';
+import { ProjectCard } from './types/project';
+import { getAllProjects } from './lib/projects';
+import ProjectsList from './components/ProjectsList';
 
-const ProjectsPage = () => (
-  <main className="container mx-auto py-12 px-4">
-    <h1 className="text-4xl font-bold mb-4">Projects</h1>
-    <p className="text-lg text-gray-700">Get to know my projects  here.</p>
-  </main>
-);
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<ProjectCard[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default ProjectsPage; 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projects = await getAllProjects();
+        setProjects(projects);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  return (
+    <ProjectsList projects={projects} />
+  );
+}
