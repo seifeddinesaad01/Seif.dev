@@ -1,6 +1,5 @@
 "use client"
 import React from "react";
-import Footer from "../components/Footer";
 import ContactSection from "../components/ContactSession";
 import HeroBanner from "./components/HeroBanner";
 import EngagementModels from "./components/EngagementModal";
@@ -10,7 +9,6 @@ const HireMePage = () => (
     <HeroBanner />
     <EngagementModels />
     <ContactSection />
-    <Footer />
   </main>
 );
 

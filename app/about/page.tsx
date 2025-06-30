@@ -4,7 +4,6 @@ import TechnicalArsenal from "./components/TechnicalArsenal";
 import StayConnected from "./components/StayConnected";
 import PersonalPhilosophy from "./components/PersonalPhilosophy";
 import CallToAction from "./components/CallToAction";
-import Footer from "../components/Footer";
 
 const AboutPage = () => (
   <div className="flex flex-col min-h-screen">
@@ -13,7 +12,6 @@ const AboutPage = () => (
     <TechnicalArsenal />
     <StayConnected />
     <CallToAction />
-    <Footer />
   </div>
 );
 
