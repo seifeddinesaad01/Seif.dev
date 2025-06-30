@@ -24,7 +24,7 @@ const TechnicalArsenal = () => {
   return (
     <section className="py-16 px-4 bg-white dark:bg-background">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold dark:text-gray-100">
+        <h2 className="text-3xl md:text-4xl font-bold ">
           Technical Arsenal <span className="ml-2">💪</span>
         </h2>
         <p className="mt-2 text-gray-600 dark:text-gray-300">

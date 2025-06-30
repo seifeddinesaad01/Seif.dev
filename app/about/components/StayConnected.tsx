@@ -83,14 +83,14 @@ const socials: Social[] = [
 
 export default function StayConnected() {
     return (
-        <section className="py-16 px-4 max-w-7xl mx-auto bg-gradient-to-b from-white to-pink-50">
+        <section className="py-16 px-4 max-w-7xl mx-auto ">
             <div className="text-center mb-16">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="mt-6 text-4xl font-bold bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent"
+                    className="mt-6 text-4xl font-bold  bg-clip-textt"
                 >
                     Stay Connected
                 </motion.h2>
@@ -108,7 +108,7 @@ export default function StayConnected() {
                     whileInView={{ width: "80px" }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="h-1 bg-gradient-to-r from-pink-400 to-rose-400 rounded-full mx-auto mt-6"
+                    className="h-1 bg-blue-600 rounded-full mx-auto mt-6"
                 ></motion.div>
             </div>
 

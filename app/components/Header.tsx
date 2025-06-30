@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
   Menu,
@@ -22,7 +22,7 @@ const links = [
 const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
+  const router = useRouter()
   return (
     <>
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -42,8 +42,8 @@ const Header = () => {
                     <Link
                       href={href}
                       className={`px-3 py-2 transition-colors ${isActive
-                          ? 'text-blue-500  border-blue-500'
-                          : 'text-muted-foreground hover:text-blue-600 '
+                        ? 'text-blue-500  border-blue-500'
+                        : 'text-muted-foreground hover:text-blue-600 '
                         }`}
                     >
                       {label}
@@ -52,7 +52,9 @@ const Header = () => {
                 );
               })}
             </ul>
-            <Button className="rounded-md px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white">
+            <Button
+              onClick={() => router.push("/hire-me")}
+              className="rounded-md px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white">
               Get in Touch
             </Button>
           </div>
@@ -91,8 +93,8 @@ const Header = () => {
               href={href}
               onClick={() => setIsOpen(false)}
               className={`${pathname === href
-                  ? 'text-blue-600 underline'
-                  : 'text-gray-800 hover:text-blue-600'
+                ? 'text-blue-600 underline'
+                : 'text-gray-800 hover:text-blue-600'
                 }`}
             >
               {label}
