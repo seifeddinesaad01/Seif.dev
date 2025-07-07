@@ -227,13 +227,7 @@ const BlogList = () => {
                       </svg>
                     </Link>
 
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-500 text-sm">Shared by</span>
-                      <div className="flex -space-x-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 border-2 border-white"></div>
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-cyan-500 border-2 border-white"></div>
-                      </div>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
