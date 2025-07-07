@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Seif Eddine Saad - Full Stack Developer",
   description: "Seif Eddine Saad - Full Stack Developer",
   icons: {
-    icon: "/logo2.png", // Place logo.png inside /public
+    icon: "/logo.png", // Place logo.png inside /public
   },
 };
 
