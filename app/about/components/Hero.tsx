@@ -9,7 +9,7 @@ const Hero = () => {
         <section className="flex flex-col items-center justify-center text-center py-20 px-4 bg-white dark:bg-background">
             {/* Badge */}
             <Badge className="mb-4 px-4 py-1 text-sm bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-               <Bot /> Software Developer
+                <Bot /> Software Developer
             </Badge>
 
             {/* Main Title */}
@@ -29,16 +29,18 @@ const Hero = () => {
                     variant="default"
                     className="group bg-blue-700 hover:bg-blue-600 rounded-xl px-8 py-6 font-semibold cursor-pointer transform transition-all duration-150 ease-out hover:shadow-2xl"
                 >
-                    <Link href="/hire-me" className="flex items-center gap-2">
+                    <a href="/resume.pdf" download className="flex items-center gap-2">
                         <span>Request CV</span>
                         <Download className="w-5 h-5 text-white group-hover:mt-1.5 transition-all duration-150 ease-out" />
-                    </Link>
+                    </a>
                 </Button>
+                <Link href="/hire-me">
+                    <Button size="lg" variant="outline" className="cursor-pointer py-6 px-8 flex items-center gap-2 rounded-xl">
+                        Let&apos; work together
+                        <ArrowRight className="w-5 h-5" />
+                    </Button>
+                </Link>
 
-                <Button size="lg" variant="outline" className="cursor-pointer py-6 px-8 flex items-center gap-2 rounded-xl">
-                    Let&apos; work together
-                    <ArrowRight className="w-5 h-5" />
-                </Button>
             </div>
         </section>
     );
