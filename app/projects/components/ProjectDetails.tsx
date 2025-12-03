@@ -148,7 +148,7 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                 className="sticky top-8 bg-gradient-to-b from-gray-50 to-white p-6 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex flex-col gap-6">
-                  <div>
+                  {project.github_url &&  <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Project Links
                     </h3>
@@ -167,7 +167,8 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                         </span>
                       </Link>
                     </div>
-                  </div>
+                  </div>}
+                 
 
                   <div className="pt-4 border-t border-gray-200">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">

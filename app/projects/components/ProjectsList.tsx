@@ -92,14 +92,15 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
                   <FaExternalLinkAlt className="text-sm" />
                   <span>View Details</span>
                 </Link>
-                <Link
+                {project.github_url &&  <Link
                   href={project.github_url}
                   target="_blank"
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors shadow-md hover:shadow-lg"
                 >
                   <FaGithub />
-                  <span>Source Code</span>
-                </Link>
+                  <span>Code</span>
+                </Link>}
+               
               </div>
             </div>
 
