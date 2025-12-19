@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaRegClock, FaCode } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { ProjectDetails as ProjectDetailsType } from "../types/project";
+import { MdLiveTv } from "react-icons/md";
 
 interface ProjectDetailsProps {
   project: ProjectDetailsType;
@@ -160,12 +161,25 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                       >
                         <span className="flex items-center gap-2">
                           <FaGithub />
-                          Source Code
+                          Code
                         </span>
                         <span className="bg-white/20 px-2 py-1 rounded text-xs">
                           GitHub
                         </span>
                       </Link>
+                       {project.demo_url && <Link
+                        href={project.demo_url}
+                        target="_blank"
+                        className="flex items-center justify-between gap-3 px-4 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+                      >
+                        <span className="flex items-center gap-2">
+                          <MdLiveTv />
+                          Demo
+                        </span>
+                        <span className="bg-white/20 px-2 py-1 rounded text-xs">
+                          live
+                        </span>
+                      </Link>}
                     </div>
                   </div>}
                  
