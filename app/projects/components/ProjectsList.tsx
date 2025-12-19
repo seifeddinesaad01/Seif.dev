@@ -90,7 +90,7 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity shadow-md hover:shadow-lg"
                 >
                   <FaExternalLinkAlt className="text-sm" />
-                  <span>View Details</span>
+                  <span>Details</span>
                 </Link>
                 {project.github_url &&  <Link
                   href={project.github_url}
