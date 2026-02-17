@@ -1,8 +1,9 @@
+// components/ProjectsList.tsx
 "use client";
 import { motion } from "framer-motion";
-import Image from 'next/image';
-import Link from 'next/link';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import Image from "next/image";
+import Link from "next/link";
+import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import { ProjectCard } from "../types/project";
 
 interface ProjectsListProps {
@@ -21,11 +22,14 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
         >
-          My <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">Projects</span>
+          My{" "}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">
+            Projects
+          </span>
         </motion.h2>
         <motion.div
           initial={{ width: 0 }}
-          whileInView={{ width: '100px' }}
+          whileInView={{ width: "100px" }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="h-1 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto rounded-full mb-12"
@@ -48,15 +52,15 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
             <div className="h-56 overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent z-10" />
               <Image
-                src={project.image_url}
+                src={project.image_url || ""}
                 alt={project.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              
+
               {/* Floating tags */}
               <div className="absolute top-4 right-4 flex flex-wrap gap-2 z-20">
-                {project.tags.slice(0, 3).map(tag => (
+                {project.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
                     className="px-3 py-1 bg-white text-blue-600 text-xs font-medium rounded-full shadow-sm border border-blue-100"
@@ -75,7 +79,7 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
                   <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                     {project.title}
                   </h3>
-                  
+
                   {/* Description */}
                   <p className="text-gray-600 mb-6 line-clamp-2">
                     {project.short_description}
@@ -92,22 +96,23 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
                   <FaExternalLinkAlt className="text-sm" />
                   <span>Details</span>
                 </Link>
-                {project.github_url &&  <Link
-                  href={project.github_url}
-                  target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors shadow-md hover:shadow-lg"
-                >
-                  <FaGithub />
-                  <span>Code</span>
-                </Link>}
-               
+                {project.github_url && (
+                  <Link
+                    href={project.github_url}
+                    target="_blank"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors shadow-md hover:shadow-lg"
+                  >
+                    <FaGithub />
+                    <span>Code</span>
+                  </Link>
+                )}
               </div>
             </div>
 
             {/* Decorative Elements */}
             <div className="absolute top-4 left-4 w-16 h-16 bg-blue-200 rounded-full filter blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
             <div className="absolute bottom-8 right-4 w-8 h-8 bg-cyan-300 rounded-full filter blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
-            
+
             {/* Glow effect */}
             <div className="absolute inset-0 rounded-3xl overflow-hidden">
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-3xl filter blur-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300" />

@@ -13,12 +13,40 @@ interface ProjectDetailsProps {
 }
 
 const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
+  // safe defaults
+  const tags = project.tags ?? [];
+  const challenges = project.challenges ?? [];
+  const features = project.features ?? [];
+  const gallery = project.gallery_urls ?? [];
+
+  // Normalize technologies: sometimes stored as a JSON string in your static data
+  const technologies: Array<{ name?: string; description?: string }> = (() => {
+    if (!project.technologies) return [];
+    try {
+      if (typeof project.technologies === "string") {
+        const parsed = JSON.parse(project.technologies);
+        if (Array.isArray(parsed)) return parsed;
+        return [];
+      }
+      if (Array.isArray(project.technologies)) {
+        return project.technologies as any;
+      }
+      return [];
+    } catch (err) {
+      // fallback: return empty array if parse fails
+      return [];
+    }
+  })();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.title} details`}
     >
       {/* Close button */}
       <button
@@ -38,31 +66,42 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
         >
           {/* Hero Section */}
           <div className="relative h-96">
-            <Image
-              src={project.image_url}
-              alt={project.title}
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
-            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-              <div className="flex flex-wrap items-center gap-4 mb-4">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
+            {project.image_url ? (
+              <>
+                <Image
+                  src={project.image_url}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                  <div className="flex flex-wrap items-center gap-4 mb-4">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h1 className="text-4xl md:text-5xl font-bold max-w-3xl">
+                    {project.title}
+                  </h1>
+                  <p className="mt-4 text-xl text-white/90 max-w-3xl">
+                    {project.short_description}
+                  </p>
+                </div>
+              </>
+            ) : (
+              <div className="h-96 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+                <div className="text-center px-6">
+                  <h1 className="text-3xl font-bold text-gray-700">{project.title}</h1>
+                  <p className="mt-3 text-gray-500 max-w-2xl">{project.short_description}</p>
+                </div>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold max-w-3xl">
-                {project.title}
-              </h1>
-              <p className="mt-4 text-xl text-white/90 max-w-3xl">
-                {project.short_description}
-              </p>
-            </div>
+            )}
           </div>
 
           {/* Main Content */}
@@ -82,7 +121,7 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                 <p className="text-gray-700 leading-relaxed mb-6">
                   {project.long_description}
                 </p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl">
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900 mb-4">
@@ -90,27 +129,35 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                       Challenges
                     </h3>
                     <ul className="space-y-2">
-                      {project.challenges.map((challenge, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
-                          <span className="text-gray-700">{challenge}</span>
-                        </li>
-                      ))}
+                      {challenges.length ? (
+                        challenges.map((challenge, i) => (
+                          <li key={i} className="flex items-start">
+                            <span className="text-blue-500 mr-2">•</span>
+                            <span className="text-gray-700">{challenge}</span>
+                          </li>
+                        ))
+                      ) : (
+                        <li className="text-gray-500">No challenges listed.</li>
+                      )}
                     </ul>
                   </div>
-                  
+
                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl">
                     <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900 mb-4">
                       <FaCode className="text-green-500" />
                       Key Features
                     </h3>
                     <ul className="space-y-2">
-                      {project.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <span className="text-green-500 mr-2">•</span>
-                          <span className="text-gray-700">{feature}</span>
-                        </li>
-                      ))}
+                      {features.length ? (
+                        features.map((feature, i) => (
+                          <li key={i} className="flex items-start">
+                            <span className="text-green-500 mr-2">•</span>
+                            <span className="text-gray-700">{feature}</span>
+                          </li>
+                        ))
+                      ) : (
+                        <li className="text-gray-500">No features listed.</li>
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -127,15 +174,19 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                   Technology Stack
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {project.technologies.map((tech, i) => (
-                    <div 
-                      key={i}
-                      className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
-                    >
-                      <h3 className="font-semibold text-gray-900 mb-2">{tech.name}</h3>
-                      <p className="text-sm text-gray-600">{tech.description}</p>
-                    </div>
-                  ))}
+                  {technologies.length ? (
+                    technologies.map((tech, i) => (
+                      <div
+                        key={i}
+                        className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <h3 className="font-semibold text-gray-900 mb-2">{tech.name ?? "Tech"}</h3>
+                        <p className="text-sm text-gray-600">{tech.description ?? ""}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="col-span-2 text-gray-500">No technologies listed.</div>
+                  )}
                 </div>
               </motion.section>
             </div>
@@ -149,69 +200,69 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                 className="sticky top-8 bg-gradient-to-b from-gray-50 to-white p-6 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex flex-col gap-6">
-                  {project.github_url &&  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                      Project Links
-                    </h3>
-                    <div className="flex flex-col gap-3">
-                      <Link
-                        href={project.github_url}
-                        target="_blank"
-                        className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors"
-                      >
-                        <span className="flex items-center gap-2">
-                          <FaGithub />
-                          Code
-                        </span>
-                        <span className="bg-white/20 px-2 py-1 rounded text-xs">
-                          GitHub
-                        </span>
-                      </Link>
-                       {project.demo_url && <Link
-                        href={project.demo_url}
-                        target="_blank"
-                        className="flex items-center justify-between gap-3 px-4 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
-                      >
-                        <span className="flex items-center gap-2">
-                          <MdLiveTv />
-                          Demo
-                        </span>
-                        <span className="bg-white/20 px-2 py-1 rounded text-xs">
-                          live
-                        </span>
-                      </Link>}
+                  {(project.github_url || project.demo_url) && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                        Project Links
+                      </h3>
+                      <div className="flex flex-col gap-3">
+                        {project.github_url && (
+                          <Link
+                            href={project.github_url}
+                            target="_blank"
+                            className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors"
+                          >
+                            <span className="flex items-center gap-2">
+                              <FaGithub />
+                              Code
+                            </span>
+                            <span className="bg-white/20 px-2 py-1 rounded text-xs">
+                              GitHub
+                            </span>
+                          </Link>
+                        )}
+
+                        {project.demo_url && (
+                          <Link
+                            href={project.demo_url}
+                            target="_blank"
+                            className="flex items-center justify-between gap-3 px-4 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+                          >
+                            <span className="flex items-center gap-2">
+                              <MdLiveTv />
+                              Demo
+                            </span>
+                            <span className="bg-white/20 px-2 py-1 rounded text-xs">live</span>
+                          </Link>
+                        )}
+                      </div>
                     </div>
-                  </div>}
-                 
+                  )}
 
                   <div className="pt-4 border-t border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                      Project Details
-                    </h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Project Details</h3>
                     <div className="space-y-4">
                       {project.timeline && (
                         <div>
-                          <h4 className="text-sm font-medium text-gray-500 mb-1">
-                            Timeline
-                          </h4>
+                          <h4 className="text-sm font-medium text-gray-500 mb-1">Timeline</h4>
                           <p className="text-gray-900">{project.timeline}</p>
                         </div>
                       )}
                       {project.team && (
                         <div>
-                          <h4 className="text-sm font-medium text-gray-500 mb-1">
-                            Team
-                          </h4>
+                          <h4 className="text-sm font-medium text-gray-500 mb-1">Team</h4>
                           <p className="text-gray-900">{project.team}</p>
                         </div>
                       )}
                       {project.category && (
                         <div>
-                          <h4 className="text-sm font-medium text-gray-500 mb-1">
-                            Category
-                          </h4>
+                          <h4 className="text-sm font-medium text-gray-500 mb-1">Category</h4>
                           <p className="text-gray-900">{project.category}</p>
                         </div>
+                      )}
+
+                      {(!project.timeline && !project.team && !project.category) && (
+                        <div className="text-gray-500">No additional details.</div>
                       )}
                     </div>
                   </div>
@@ -229,7 +280,7 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
           </div>
 
           {/* Gallery Section */}
-          {project.gallery_urls && project.gallery_urls.length > 0 && (
+          {gallery.length > 0 && (
             <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -240,17 +291,23 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                 Project Gallery
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {project.gallery_urls.map((url, index) => (
+                {gallery.map((url, index) => (
                   <div
                     key={index}
                     className="relative h-64 rounded-xl overflow-hidden border-2 border-white shadow-lg hover:scale-[1.02] transition-transform"
                   >
-                    <Image
-                      src={url}
-                      alt={`Gallery image ${index + 1} for ${project.title}`}
-                      fill
-                      className="object-cover"
-                    />
+                    {url ? (
+                      <Image
+                        src={url}
+                        alt={`Gallery image ${index + 1} for ${project.title}`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="h-64 bg-gray-100 flex items-center justify-center text-gray-400">
+                        No image
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -270,11 +327,13 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                   Project Reflection
                 </h2>
                 <div className="space-y-4">
-                  {project.reflection.split('\n').map((paragraph:any, index:any) => (
-                    <p key={index} className="text-gray-700">
-                      {paragraph}
-                    </p>
-                  ))}
+                  {String(project.reflection)
+                    .split("\n")
+                    .map((paragraph: any, index: any) => (
+                      <p key={index} className="text-gray-700">
+                        {paragraph}
+                      </p>
+                    ))}
                 </div>
               </div>
             </motion.section>

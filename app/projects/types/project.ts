@@ -1,26 +1,22 @@
-export interface Technology {
-  name: string;
-  description: string;
-}
-
+// types/project.ts
 export interface ProjectCard {
+  idx: number;
   id: string;
   title: string;
   short_description: string;
-  image_url: string;
+  long_description?: string;
+  image_url?: string;
+  demo_url?: string;
+  github_url?: string;
   tags: string[];
-  demo_url: string;
-  github_url: string;
+  challenges?: string[];
+  features?: string[];
+  technologies?: string;
+  timeline?: string;
+  team?: string;
+  category?: string;
+  gallery_urls?: string[];
+  reflection?: string;
+  created_at?: string;
 }
-
-export interface ProjectDetails extends ProjectCard {
-  long_description: string;
-  challenges: string[];
-  features: string[];
-  technologies: Technology[];
-  timeline: string | null;
-  team: string | null;
-  category: string | null;
-  gallery_urls: string[];
-  reflection: string | null;
-}
+export type ProjectDetails = ProjectCard;
