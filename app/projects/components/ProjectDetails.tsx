@@ -2,7 +2,15 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaRegClock, FaCode } from "react-icons/fa";
+import {
+  FaGithub,
+  FaExternalLinkAlt,
+  FaArrowLeft,
+  FaRegClock,
+  FaCode,
+  FaGooglePlay,
+  FaApple,
+} from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { ProjectDetails as ProjectDetailsType } from "../types/project";
 import { MdLiveTv } from "react-icons/md";
@@ -200,7 +208,7 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                 className="sticky top-8 bg-gradient-to-b from-gray-50 to-white p-6 rounded-2xl border border-gray-200 shadow-sm"
               >
                 <div className="flex flex-col gap-6">
-                  {(project.github_url || project.demo_url) && (
+                  {(project.github_url || project.demo_url || project.google_play_url || project.app_store_url) && (
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">
                         Project Links
@@ -233,6 +241,34 @@ const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
                               Demo
                             </span>
                             <span className="bg-white/20 px-2 py-1 rounded text-xs">live</span>
+                          </Link>
+                        )}
+
+                        {project.google_play_url && (
+                          <Link
+                            href={project.google_play_url}
+                            target="_blank"
+                            className="flex items-center justify-between gap-3 px-4 py-3 bg-emerald-700 text-white rounded-lg font-medium hover:bg-emerald-600 transition-colors"
+                          >
+                            <span className="flex items-center gap-2">
+                              <FaGooglePlay />
+                              Google Play
+                            </span>
+                            <span className="bg-white/20 px-2 py-1 rounded text-xs">store</span>
+                          </Link>
+                        )}
+
+                        {project.app_store_url && (
+                          <Link
+                            href={project.app_store_url}
+                            target="_blank"
+                            className="flex items-center justify-between gap-3 px-4 py-3 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors"
+                          >
+                            <span className="flex items-center gap-2">
+                              <FaApple />
+                              App Store
+                            </span>
+                            <span className="bg-white/20 px-2 py-1 rounded text-xs">store</span>
                           </Link>
                         )}
                       </div>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Project image placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e5e7eb" />
+      <stop offset="100%" stop-color="#d1d5db" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <g fill="none" stroke="#9ca3af" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="520" y="240" width="560" height="360" rx="24" />
+    <circle cx="680" cy="360" r="48" />
+    <path d="M620 520l120-120 96 96 84-84 96 108" />
+  </g>
+  <text x="800" y="690" text-anchor="middle" fill="#6b7280" font-family="Arial, Helvetica, sans-serif" font-size="44">
+    Add project image here
+  </text>
+</svg>

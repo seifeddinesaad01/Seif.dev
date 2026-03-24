@@ -8,15 +8,18 @@ export interface ProjectCard {
   image_url?: string;
   demo_url?: string;
   github_url?: string;
+  google_play_url?: string;
+  app_store_url?: string;
   tags: string[];
   challenges?: string[];
   features?: string[];
   technologies?: string;
   timeline?: string;
   team?: string;
-  category?: string;
   gallery_urls?: string[];
   reflection?: string;
   created_at?: string;
+  category?: "web" | "mobile";
+
 }
 export type ProjectDetails = ProjectCard;

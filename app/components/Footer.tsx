@@ -37,7 +37,6 @@ const Footer: React.FC = () => {
             <h4 className="text-base sm:text-lg font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               <li><Link href="/about" className="hover:text-blue-500">About</Link></li>
-              <li><Link href="/blog" className="hover:text-blue-500">Blog</Link></li>
               <li><Link href="/hire-me" className="hover:text-blue-500">Hire Me</Link></li>
             </ul>
           </div>
