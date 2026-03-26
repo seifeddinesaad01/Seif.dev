@@ -111,7 +111,7 @@ export const PROJECTS: ProjectCard[] = [
     long_description:
       "A modern e-commerce platform built with Next.js and integrated with Stripe payments. The platform features a complete shopping experience with product discovery, seamless checkout, and admin dashboard for inventory management.",
     image_url:
-      "https://uvzufczgnlazuqyhvhcx.supabase.co/storage/v1/object/public/pesocomidbue//thedigitalhippo.jpg",
+      "/assets/digital-hippo.jpg",
     demo_url: "https://www.digital-hippo.com/",
     github_url: "https://github.com/seifeddinesaad01/The-Digital-Hippo",
     tags: ["Next.js", "Stripe", "Tailwind CSS", "TypeScript", "PostgreSQL", "Redis"],
@@ -156,7 +156,7 @@ export const PROJECTS: ProjectCard[] = [
     long_description:
       "Picturespark is a full-featured coaching platform built with Next.js and Supabase, styled in Tailwind CSS and deployed on AWS via Docker. Coaches can organize their workflows, manage bookings, host one-on-one video calls, and run real-time interactive group sessions powered by Socket.io.",
     image_url:
-      "https://uvzufczgnlazuqyhvhcx.supabase.co/storage/v1/object/public/pesocomidbue//dashboard.png",
+      "/assets/dashboard.webp",
     demo_url: "https://jumpstones.picturespark.app",
     github_url: "",
     tags: ["Next.js", "Supabase", "Tailwind CSS", "AWS", "Docker", "Socket.io"],
