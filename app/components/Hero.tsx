@@ -44,7 +44,7 @@ const Hero = () => {
         {/* Description */}
         <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
           Expert Full Stack Developer specializing in rapid MVP development and AI integration.
-          Over 4 years of experience turning innovative ideas into production-ready applications.
+          Over 5 years of experience turning innovative ideas into production-ready applications.
         </p>
 
         {/* CTA Buttons */}
@@ -53,18 +53,21 @@ const Hero = () => {
           <Button
             size="lg"
             variant="default"
+            asChild
             className="group bg-blue-500 hover:bg-blue-600 rounded-xl px-8 py-6 font-semibold cursor-pointer transform transition-all duration-150 ease-out hover:shadow-2xl"
           >
-            <Link href="/hire-me"  className="flex items-center gap-2 transition-all duration-150 ease-out group-hover:gap-4">
+            <Link href="/hire-me" className="flex items-center gap-2 transition-all duration-150 ease-out group-hover:gap-4">
               <span>Start Your Project</span>
               <Rocket className="w-5 h-5 text-white" />
             </Link>
           </Button>
 
           {/* View Portfolio Button */}
-          <Button size="lg" variant="outline" className="cursor-pointer py-6 px-8 flex items-center gap-2 rounded-xl">
-            View Portfolio
-            <ArrowRight className="w-5 h-5" />
+          <Button size="lg" variant="outline" asChild className="cursor-pointer py-6 px-8 rounded-xl">
+            <Link href="/projects" className="flex items-center gap-2">
+              View Portfolio
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </section>
