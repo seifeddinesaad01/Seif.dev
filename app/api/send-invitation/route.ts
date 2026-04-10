@@ -1,26 +1,23 @@
-// app/api/send-invitation/route.ts
-import { sendEmail } from "@/utils/sendEmail";
-import { createClient } from "@/utils/supabase/client";
 import { NextResponse } from "next/server";
+import { sendEmail } from "@/utils/sendEmail";
 
-// Initialize Supabase client
-const supabase = createClient();
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   try {
-    const { recipientEmail, details } = await request.json();
+    const body = await request.json();
+    const { recipientEmail, details } = body ?? {};
 
-    // Validate input
     if (!recipientEmail) {
       return NextResponse.json(
-        { error: "Email, invitation link, and subdomain are required" },
+        { error: "Recipient email is required" },
         { status: 400 }
       );
     }
-    // Send the email invitation only if the user does not exist
-    const emailResult = await sendEmail(recipientEmail,details);
 
-    // Check if email was sent successfully
+    const emailResult = await sendEmail(recipientEmail, details);
+
     if (!emailResult.success) {
       return NextResponse.json(
         { error: emailResult.error || "Failed to send the email" },
@@ -28,7 +25,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // If all operations succeed
     return NextResponse.json(
       { message: "Email sent successfully" },
       { status: 200 }
@@ -36,7 +32,10 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error("Server error:", error);
     return NextResponse.json(
-      { error: "Internal server error", details: error.message },
+      {
+        error: "Internal server error",
+        details: error?.message || "Unknown error",
+      },
       { status: 500 }
     );
   }

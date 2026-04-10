@@ -1,22 +1,65 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "server-only";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
-import AWS from "aws-sdk";
+type SendEmailDetails = {
+  name?: string;
+  email?: string;
+  engagement?: string;
+  budget?: string;
+  message?: string;
+};
 
-process.env.AWS_SDK_LOAD_CONFIG = "1";
+type SendEmailResult = {
+  success: boolean;
+  error?: string;
+};
 
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID_TEST,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_TEST,
-  region: process.env.AWS_REGION_TEST,
-});
+function escapeHtml(value: string = "") {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
-const ses = new AWS.SES({ apiVersion: "2010-12-01" });
+function getSesClient() {
+  const region = process.env.AWS_REGION_TEST;
+  const accessKeyId = process.env.AWS_ACCESS_KEY_ID_TEST;
+  const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY_TEST;
 
-export const sendEmail = async (recipientEmail: string, details: any) => {
+  if (!region || !accessKeyId || !secretAccessKey) {
+    throw new Error(
+      "Missing AWS environment variables: AWS_REGION_TEST, AWS_ACCESS_KEY_ID_TEST, AWS_SECRET_ACCESS_KEY_TEST"
+    );
+  }
+
+  return new SESClient({
+    region,
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
+  });
+}
+
+export const sendEmail = async (
+  recipientEmail: string,
+  details: SendEmailDetails
+): Promise<SendEmailResult> => {
   try {
-    let rawMessage = `You have been invited. Click the link to join:`;
-    const { name, email, engagement, budget, message } = details;
+    if (!recipientEmail) {
+      return { success: false, error: "Recipient email is required" };
+    }
+
+    const ses = getSesClient();
+
+    const name = escapeHtml(details?.name ?? "");
+    const email = escapeHtml(details?.email ?? "");
+    const engagement = escapeHtml(details?.engagement ?? "");
+    const budget = escapeHtml(details?.budget ?? "");
+    const message = escapeHtml(details?.message ?? "");
+
     const emailTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +75,7 @@ export const sendEmail = async (recipientEmail: string, details: any) => {
           <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
             <tr>
               <td style="padding: 40px 20px; text-align: center;">
-              <h1>Seif.Dev</h1>
+                <h1 style="margin: 0;">Seif.Dev</h1>
               </td>
             </tr>
             <tr>
@@ -75,11 +118,10 @@ export const sendEmail = async (recipientEmail: string, details: any) => {
       </tr>
     </table>
   </body>
-</html>
-`;
+</html>`.trim();
 
-    const params: AWS.SES.SendEmailRequest = {
-      Source: `"PictureSpark" <do-not-reply@picturespark.app>`,
+    const command = new SendEmailCommand({
+      Source: process.env.SES_FROM_EMAIL ?? `"PictureSpark" <do-not-reply@picturespark.app>`,
       Destination: {
         ToAddresses: [recipientEmail],
       },
@@ -89,15 +131,17 @@ export const sendEmail = async (recipientEmail: string, details: any) => {
         },
         Body: {
           Html: { Data: emailTemplate },
-          Text: { Data: rawMessage },
+          Text: {
+            Data: "You have been invited. Click the link to join:",
+          },
         },
       },
-    };
+    });
 
-    await ses.sendEmail(params).promise();
+    await ses.send(command);
     return { success: true };
   } catch (error: any) {
     console.error("Email sending failed:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: error?.message || "Failed to send email" };
   }
 };

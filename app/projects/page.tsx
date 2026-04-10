@@ -1,13 +1,18 @@
-// app/projects/page.tsx (or wherever your ProjectsPage lives)
-"use client";
+import { Suspense } from "react";
 import { PROJECTS } from "@/Data/projects";
-import { useState } from "react";
-import { ProjectCard } from "./types/project";
 import ProjectsList from "./components/ProjectsList";
 
-
+// Server component — no "use client" here
 export default function ProjectsPage() {
-  const [projects] = useState<ProjectCard[]>(PROJECTS);
-  // no remote loading so we don't need spinner; keep same UI output
-  return <ProjectsList projects={projects} />;
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center text-gray-400">
+          Loading projects…
+        </div>
+      }
+    >
+      <ProjectsList projects={PROJECTS} />
+    </Suspense>
+  );
 }
