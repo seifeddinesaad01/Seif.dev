@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Briefcase, Rocket, CodeXml } from 'lucide-react';
+import { Sparkles, Briefcase, Rocket, CodeXml, ShoppingBag } from 'lucide-react';
 
 const skills = [
   {
@@ -18,6 +18,11 @@ const skills = [
     icon: <Rocket className="w-6 h-6 text-indigo-600" />, 
     items: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'],
   },
+  {
+    title: 'Platforms & commerce 🛒',
+    icon: <ShoppingBag className="w-6 h-6 text-indigo-600" />,
+    items: ['Shopify', 'WordPress', 'Framer', 'Webflow'],
+  },
 ];
 
 const TechnicalArsenal = () => {
@@ -32,7 +37,7 @@ const TechnicalArsenal = () => {
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         {skills.map((group) => (
           <Card key={group.title} className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader className="flex items-center space-x-3">

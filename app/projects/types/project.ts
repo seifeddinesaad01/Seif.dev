@@ -19,7 +19,7 @@ export interface ProjectCard {
   gallery_urls?: string[];
   reflection?: string;
   created_at?: string;
-  category?: "web" | "mobile";
+  category?: "web" | "mobile" | "landing" | "shopify";
 
 }
 export type ProjectDetails = ProjectCard;

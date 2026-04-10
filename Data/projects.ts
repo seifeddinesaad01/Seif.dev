@@ -290,7 +290,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "React framework for SSR and API routes"}, {"name": "Firebase", "description": "Realtime database and authentication"}, {"name": "Tailwind CSS", "description": "Utility-first CSS framework"}, {"name": "Stripe", "description": "Payment processing for bookings"}, {"name": "Mapbox", "description": "Interactive maps and location services"}, {"name": "React Query", "description": "Data fetching and caching"}]',
     timeline: "3 Days",
     team: "Solo",
-    category: "web",
+    category: "landing",
     gallery_urls: [
       "/assets/lp.webp",
       "/assets/lp1.webp",
@@ -375,10 +375,64 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Landing Page", "description": "Single-focus website for showcasing a company and its offer"}, {"name": "Responsive Design", "description": "Adaptive layout across device sizes"}, {"name": "Modern UI", "description": "Clean visual language for clarity and trust"}]',
     timeline: "Completed",
     team: "Solo Project",
-    category: "web",
+    category: "landing",
     gallery_urls: [],
     reflection:
       "This project focused on presenting industrial-tech messaging in a clear and modern web experience. The main takeaway was maintaining clarity and conversion-focused structure while keeping the visual design simple and credible.",
     created_at: "2026-04-07 00:00:00+00",
   },
+  {
+    idx: 9,
+    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+    title: "QuickSchools",
+    short_description:
+      "High-conversion education SaaS marketing site—reference for Next.js landing patterns.",
+    long_description:
+      "Showcase reference for a polished product marketing site in the EdTech space, emphasizing clear value props, trust, and scalable content structure typical of Next.js production sites.",
+    demo_url: "https://www.quickschools.com/",
+    image_url: "/assets/quickschools.png",
+
+    github_url: "",
+    tags: ["Next.js", "Landing Page", "EdTech", "Marketing"],
+    category: "landing",
+    gallery_urls: [],
+    created_at: "2026-04-10 00:00:00+00",
+  },
+
+  {
+    idx: 11,
+    id: "c3d4e5f6-a7b8-4901-c234-567890123456",
+    title: "Anrok",
+    image_url: "/assets/anrok.png",
+
+    short_description:
+      "B2B SaaS marketing site on Webflow—clean narrative and product storytelling.",
+    long_description:
+      "Reference for Webflow-built landing experiences with modular sections, crisp visuals, and conversion-focused B2B messaging.",
+    demo_url: "https://www.anrok.com/",
+    github_url: "",
+    tags: ["Webflow", "Landing Page", "B2B", "SaaS"],
+    category: "landing",
+    gallery_urls: [],
+    created_at: "2026-04-10 00:00:00+00",
+  },  
+
+  {
+    idx: 14,
+    id: "f6a7b8c9-d0e1-4234-f567-890123456789",
+    title: "Tella",
+    image_url: "/assets/tella.png",
+    short_description:
+      "Product landing on Framer—video-first narrative and modern layout.",
+    long_description:
+      "Reference for Framer landing pages that lead with product demo and motion, ideal for creative and video tooling brands.",
+    demo_url: "https://landingpage.tella.com/",
+    github_url: "",
+    tags: ["Framer", "Landing Page", "Video", "Product"],
+    category: "landing",
+    gallery_urls: [],
+    created_at: "2026-04-10 00:00:00+00",
+  },
+
+
 ];

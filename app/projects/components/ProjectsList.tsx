@@ -2,7 +2,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   FaApple,
   FaChevronLeft,
@@ -13,14 +14,23 @@ import {
   FaGlobe,
   FaGooglePlay,
   FaMobileAlt,
+  FaRocket,
 } from "react-icons/fa";
+import { SiShopify } from "react-icons/si";
 import { ProjectCard } from "../types/project";
 
 interface ProjectsListProps {
   projects: ProjectCard[];
 }
 
-type Category = "web" | "mobile";
+type Category = "web" | "mobile" | "landing" ;
+
+const VALID_TABS = new Set<Category>(["web", "mobile", "landing"]);
+
+function tabFromSearchParam(value: string | null): Category {
+  if (value && VALID_TABS.has(value as Category)) return value as Category;
+  return "web";
+}
 
 const tabs: { id: Category; label: string; icon: React.ReactNode; color: string }[] = [
   {
@@ -35,19 +45,77 @@ const tabs: { id: Category; label: string; icon: React.ReactNode; color: string 
     icon: <FaMobileAlt />,
     color: "from-violet-500 to-fuchsia-500",
   },
+  {
+    id: "landing",
+    label: "Landing Pages",
+    icon: <FaRocket />,
+    color: "from-amber-500 to-orange-500",
+  },
+
 ];
 
+const tabAccent: Record<
+  Category,
+  { color: string; tag: string; btn: string; border: string; panel: string }
+> = {
+  web: {
+    color: "from-blue-500 to-cyan-500",
+    tag: "text-blue-600 border-blue-100 bg-white",
+    btn: "from-blue-600 to-cyan-600",
+    border: "border-blue-100",
+    panel: "bg-blue-50/40",
+  },
+  mobile: {
+    color: "from-violet-500 to-fuchsia-500",
+    tag: "text-violet-600 border-violet-100 bg-white",
+    btn: "from-violet-600 to-fuchsia-600",
+    border: "border-violet-100",
+    panel: "bg-violet-50/40",
+  },
+  landing: {
+    color: "from-amber-500 to-orange-500",
+    tag: "text-amber-700 border-amber-100 bg-white",
+    btn: "from-amber-500 to-orange-600",
+    border: "border-amber-100",
+    panel: "bg-amber-50/40",
+  }
+};
+
+const emptyTabLabel: Record<Category, string> = {
+  web: "web",
+  mobile: "mobile",
+  landing: "landing page",
+
+};
+
 const ProjectsList = ({ projects }: ProjectsListProps) => {
-  const [activeTab, setActiveTab] = useState<Category>("web");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const tabFromUrl = tabFromSearchParam(searchParams.get("tab"));
+
+  const [activeTab, setActiveTab] = useState<Category>(tabFromUrl);
   const [previewProject, setPreviewProject] = useState<ProjectCard | null>(null);
   const [previewImageIndex, setPreviewImageIndex] = useState(0);
   const fallbackImage = "/images/projects/placeholder.svg";
 
-  // All existing projects go to web by default.
-  // To add mobile projects, give them a `category: "mobile"` field.
-  // If the project has no category field we default it to "web".
+  const tabParam = searchParams.get("tab");
+  useEffect(() => {
+    const nextTab = tabFromSearchParam(tabParam);
+    if (nextTab !== activeTab) setActiveTab(nextTab);
+  }, [tabParam, activeTab]);
+
+  const handleTabChange = (tab: Category) => {
+    if (tab === activeTab) return;
+    setActiveTab(tab);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", tab);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  // Default category is "web" when omitted.
   const filtered = projects.filter(
-    (p) => ((p as any).category ?? "web") === activeTab
+    (p) => (p.category ?? "web") === activeTab
   );
   const getDisplayImages = (project: ProjectCard) => {
     const gallery = (project.gallery_urls ?? []).filter(Boolean);
@@ -61,23 +129,8 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
     setPreviewProject(project);
   };
 
-  const activeColor =
-    activeTab === "web" ? "from-blue-500 to-cyan-500" : "from-violet-500 to-fuchsia-500";
-
-  const activeCardAccent =
-    activeTab === "web"
-      ? {
-          tag: "text-blue-600 border-blue-100 bg-white",
-          btn: "from-blue-600 to-cyan-600",
-          border: "border-blue-100",
-          panel: "bg-blue-50/40",
-        }
-      : {
-          tag: "text-violet-600 border-violet-100 bg-white",
-          btn: "from-violet-600 to-fuchsia-600",
-          border: "border-violet-100",
-          panel: "bg-violet-50/40",
-        };
+  const activeColor = tabAccent[activeTab].color;
+  const activeCardAccent = tabAccent[activeTab];
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
@@ -105,15 +158,15 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
       </div>
 
       {/* ── Tab Switcher ── */}
-      <div className="flex justify-center mb-14">
-        <div className="relative flex items-center gap-1 bg-white rounded-2xl p-1.5 shadow-lg border border-gray-100">
+      <div className="flex justify-center mb-14 px-2">
+        <div className="relative flex flex-wrap items-center justify-center gap-1 bg-white rounded-2xl p-1.5 shadow-lg border border-gray-100 max-w-full">
           {tabs.map((tab) => {
             const isActive = tab.id === activeTab;
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className="relative z-10 flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-200"
+                onClick={() => handleTabChange(tab.id)}
+                className="relative z-10 flex items-center gap-2 px-4 sm:px-6 py-3 rounded-xl text-sm font-semibold transition-colors duration-200"
                 style={{ color: isActive ? "white" : "#6b7280" }}
               >
                 {/* Sliding pill background */}
@@ -146,7 +199,7 @@ const ProjectsList = ({ projects }: ProjectsListProps) => {
         >
           {filtered.length === 0 ? (
             <div className="col-span-full text-center py-24 text-gray-400 text-lg font-medium">
-              No {activeTab === "web" ? "web" : "mobile"} projects yet. Stay tuned!
+              No {emptyTabLabel[activeTab]} projects yet. Stay tuned!
             </div>
           ) : (
             filtered.map((project, index) => (
