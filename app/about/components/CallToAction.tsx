@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const CallToAction = () => {
     return (
-        <section className="w-full py-16 md:py-24 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <section className="w-full py-16 md:py-24 ">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="relative bg-gradient-to-r from-blue-500 to-indigo-700 rounded-3xl shadow-2xl overflow-hidden">
                     {/* Decorative elements */}

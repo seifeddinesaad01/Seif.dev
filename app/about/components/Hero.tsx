@@ -6,7 +6,7 @@ import { Download, ArrowRight, Hand, Bot } from "lucide-react";
 
 const Hero = () => {
     return (
-        <section className="flex flex-col items-center justify-center text-center py-20 px-4 bg-white dark:bg-background">
+        <section className="flex flex-col items-center justify-center text-center py-20 px-4  dark:bg-background">
             {/* Badge */}
             <Badge className="mb-4 px-4 py-1 text-sm bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
                 <Bot /> Software Developer

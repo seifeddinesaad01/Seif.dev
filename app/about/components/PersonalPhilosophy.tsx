@@ -42,7 +42,7 @@ const PersonalPhilosophy = () => {
   ];
 
   return (
-    <section className="w-full max-w-full mx-auto px-4 py-16 md:py-24 bg-white">
+    <section className="w-full max-w-full mx-auto px-4 py-16 md:py-24 ">
       <div className="text-center mb-16 relative">
        
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
