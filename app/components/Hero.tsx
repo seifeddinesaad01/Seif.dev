@@ -1,78 +1,220 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { Button } from '@/components/ui/button'
-import { Rocket, ArrowRight, Bot } from 'lucide-react'
-import { stackIcons, textsToAnimate } from '@/Data/data'
-import AnimatedText from './AnimatedText'
-import CodeIcon from './CodeIcon'
-import FadeInSection from './FadeInSection'
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const Hero = () => {
   return (
-    <FadeInSection>
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-4 py-16">
-        <div className="flex justify-center mt-[-3rem] mb-8">
-          <div className="bg-blue-100 text-blue-900  px-4 py-1 rounded-full text-sm font-medium flex items-center">
-            <Bot className="w-4 h-4 mr-2" />
-            AI-Powered Development
-          </div>
-        </div>
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 flex flex-col items-center justify-center gap-4">
-          Build Your MVP
-          {/* Animated Gradient Text */}
-          <AnimatedText texts={textsToAnimate} />
-        </h1>
+    <section className="relative overflow-hidden px-5 pb-16 pt-6 md:px-8 md:pb-24 md:pt-10">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-signal-bright/20 blur-3xl"
+        animate={{ x: [0, 24, 0], y: [0, -18, 0], scale: [1, 1.08, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"
+        animate={{ x: [0, -20, 0], y: [0, 16, 0], scale: [1, 1.06, 1] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-          From Concept to Production-Ready Application
-        </p>
-
-        {/* Stack Icons */}
-        <div className="flex justify-center items-center gap-2 mb-8">
-          {stackIcons.map((icon, index) => (
-            <div className="flex justify-center items-center gap-1 text-gray-500" key={index}>
-              <CodeIcon name={icon.name} />
-              <span className="text-gray-600">•</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Description */}
-        <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-          Expert Full Stack Developer specializing in rapid MVP development and AI integration.
-          Over 5 years of experience turning innovative ideas into production-ready applications.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-          {/* Start Your Project Button with Tailwind hover effects */}
-          <Button
-            size="lg"
-            variant="default"
-            asChild
-            className="group bg-blue-500 hover:bg-blue-600 rounded-xl px-8 py-6 font-semibold cursor-pointer transform transition-all duration-150 ease-out hover:shadow-2xl"
+      <div className="relative mx-auto grid min-h-[78vh] max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.7, ease }}
+            className="mb-5 font-mono text-xs uppercase tracking-[0.28em] text-muted-ink"
           >
-            <Link href="/hire-me" className="flex items-center gap-2 transition-all duration-150 ease-out group-hover:gap-4">
-              <span>Start Your Project</span>
-              <Rocket className="w-5 h-5 text-white" />
-            </Link>
-          </Button>
+            Full-stack · Product · Ops platforms
+          </motion.p>
 
-          {/* View Portfolio Button */}
-          <Button size="lg" variant="outline" asChild className="cursor-pointer py-6 px-8 rounded-xl">
-            <Link href="/projects" className="flex items-center gap-2">
-              View Portfolio
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
+          <motion.h1
+            className="font-display text-[clamp(3.4rem,9vw,7.5rem)] leading-[0.9] text-ink"
+            style={{ fontWeight: 800 }}
+            initial="hidden"
+            animate="show"
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+            }}
+          >
+            <motion.span
+              className="inline-block"
+              variants={{
+                hidden: { opacity: 0, y: 40, rotateX: -20 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  rotateX: 0,
+                  transition: { duration: 0.75, ease },
+                },
+              }}
+            >
+              seif
+            </motion.span>
+            <motion.span
+              className="inline-block text-signal"
+              variants={{
+                hidden: { opacity: 0, y: 40, scale: 0.9 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: { duration: 0.75, ease },
+                },
+              }}
+            >
+              .dev
+            </motion.span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.35, ease }}
+            className="mt-6 max-w-xl text-lg text-muted-ink md:text-xl"
+          >
+            I design and ship production web systems — scored products, field-ops
+            portals, and clean client experiences that hold up after launch.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.48, ease }}
+            className="mt-9 flex flex-wrap items-center gap-3"
+          >
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/hire-me"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-signal"
+              >
+                Start a project
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-white/50 px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-signal hover:text-signal"
+              >
+                View selected work
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
-    </FadeInSection>
-  )
-}
 
-export default Hero
+        <div
+          className="relative mx-auto w-full max-w-lg lg:max-w-none"
+          aria-hidden="true"
+        >
+          {/* Back panel — Base Plus One */}
+          <motion.div
+            initial={{ opacity: 0, x: 40, rotate: 8, y: 20 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              rotate: 3,
+              y: [0, -10, 0],
+            }}
+            transition={{
+              opacity: { duration: 0.8, delay: 0.3, ease },
+              x: { duration: 0.8, delay: 0.3, ease },
+              rotate: { duration: 0.8, delay: 0.3, ease },
+              y: {
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.1,
+              },
+            }}
+            className="absolute right-0 top-6 w-[78%] overflow-hidden rounded-2xl border border-line bg-white shadow-xl shadow-ink/10"
+          >
+            <div className="flex items-center gap-1.5 border-b border-line bg-mist/80 px-3 py-2">
+              <span className="h-2 w-2 rounded-full bg-ink/15" />
+              <span className="h-2 w-2 rounded-full bg-ink/15" />
+              <span className="h-2 w-2 rounded-full bg-ink/15" />
+              <span className="ml-2 font-mono text-[10px] text-muted-ink">
+                baseplusone.com
+              </span>
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <motion.div
+                className="absolute inset-0"
+                animate={{ scale: [1, 1.04, 1] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Image
+                  src="/assets/base-plus-one-thumb.jpg"
+                  alt=""
+                  fill
+                  sizes="(max-width: 1024px) 70vw, 380px"
+                  className="object-cover object-top"
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Front panel — Callixa */}
+          <motion.div
+            initial={{ opacity: 0, x: -36, y: 36 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              y: [0, 12, 0],
+            }}
+            transition={{
+              opacity: { duration: 0.85, delay: 0.18, ease },
+              x: { duration: 0.85, delay: 0.18, ease },
+              y: {
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              },
+            }}
+            whileHover={{ y: -4, transition: { duration: 0.3 } }}
+            className="relative z-10 mt-16 w-[88%] overflow-hidden rounded-2xl border border-line bg-ink shadow-2xl shadow-ink/25"
+          >
+            <div className="flex items-center gap-1.5 border-b border-white/10 bg-ink px-3 py-2">
+              <motion.span
+                className="h-2 w-2 rounded-full bg-signal-bright"
+                animate={{ opacity: [0.45, 1, 0.45] }}
+                transition={{ duration: 2.2, repeat: Infinity }}
+              />
+              <span className="h-2 w-2 rounded-full bg-white/25" />
+              <span className="h-2 w-2 rounded-full bg-white/25" />
+              <span className="ml-2 font-mono text-[10px] text-white/50">
+                callixa.ai
+              </span>
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <motion.div
+                className="absolute inset-0"
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Image
+                  src="/assets/callixa-thumb.jpg"
+                  alt=""
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 80vw, 420px"
+                  className="object-cover object-top"
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

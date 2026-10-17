@@ -4,6 +4,102 @@ import { ProjectCard } from "@/app/projects/types/project";
 
 export const PROJECTS: ProjectCard[] = [
   {
+    idx: 16,
+    id: "8d54f733-5f59-439a-84bd-ffcd8d950899",
+    title: "Callixa Sales Rep Portal",
+    short_description:
+      "Built a multi-role field-ops portal with magic-link auth, a countdown-driven task engine, VA rotation routing, and Slack/email alerting on Next.js + Supabase.",
+    long_description:
+      "Designed and shipped an internal field-operations portal for Callixa: contractor apply/approve lifecycle, magic-link + TOTP auth, a scheduler-backed task/escalation engine, VA rotation routing, strike/responsiveness compliance, Slack/email delivery, and admin tooling — on Next.js 14, TypeScript, and Supabase with RLS. Built for a field sales org spanning sales reps, virtual assistants, regional managers, and admins — contractor onboarding, role-based work routing, timed task escalation, compliance (strikes / responsiveness), and offboarding — not a generic CRUD dashboard. Replaced ad-hoc handoffs with an auditable workflow: every assignment, escalation, and standing change is logged; missed work escalates automatically; VAs enter/leave rotation based on real eligibility instead of manual spreadsheets.",
+    image_url: "/assets/callixa-thumb.jpg",
+    demo_url: "https://callixa.ai",
+    github_url: "",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Tailwind CSS",
+      "Slack",
+      "Postmark",
+      "Field Ops",
+      "Internal Tools",
+    ],
+    challenges: [
+      "Multi-tenant-style host routing so portal / setup / app hosts hard-404 on mismatch",
+      "Passwordless magic-link sessions with revocation, rate limits, and admin TOTP + backup codes",
+      "Task state machine with countdowns, escalation ladders, reassignment, and blocked pause/resume",
+      "Fair VA rotation with eligibility rules and admin-fallback handback that preserves task identity",
+      "Compliance engine for rolling-window strikes, appeals, and responsiveness-driven auto-reassign",
+      "Offboarding cascade that revokes sessions, clears ownership, expires deals, and preserves attribution",
+    ],
+    features: [
+      "Contractor apply/approve lifecycle across sales reps, VAs, regional managers, and admins",
+      "Countdown-driven task engine with red / yellow / blue / green states and escalation",
+      "VA rotation routing with availability, responsiveness, and competency eligibility",
+      "Strike bands, appeals/voiding, and responsiveness scoring",
+      "Deduped notification outbox across portal, Postmark email, and Slack Bot DMs",
+      "i18n with EN / AR (RTL) + ES / FR / ZH from day one",
+      "Vitest integration and Playwright e2e coverage for milestone host routing and flows",
+    ],
+    technologies:
+      '[{"name": "Next.js", "description": "App Router frontend with server actions and host-aware routing"}, {"name": "TypeScript", "description": "Strict typing across portal flows and domain logic"}, {"name": "Supabase", "description": "Postgres, RLS, Storage, and service-role privileged writes"}, {"name": "Tailwind CSS", "description": "Utility-first UI for multi-role ops surfaces"}, {"name": "next-intl", "description": "EN / AR RTL + ES / FR / ZH localization"}, {"name": "Postmark", "description": "Transactional email for magic links and ops alerts"}, {"name": "Slack Bot API", "description": "DMs and ops alerting with deduped outbox"}, {"name": "Zod", "description": "Runtime validation for forms and server inputs"}, {"name": "Vitest", "description": "Integration tests for milestone flows"}, {"name": "Playwright", "description": "E2E and host routing coverage"}]',
+    timeline: "Completed — M1/M2 portal",
+    team: "Solo / Callixa",
+    category: "web",
+    gallery_urls: [],
+    reflection:
+      "Scope stayed on the portal and M1/M2: auth, contractor lifecycle, tasks, routing, and Slack — not the client-facing voice product. The hard part was making escalation, VA eligibility, and standing changes auditable and automatic so the org could retire spreadsheet handoffs without inventing a generic CRUD admin.",
+    created_at: "2026-10-17 00:00:00+00",
+  },
+  {
+    idx: 15,
+    id: "c2cf5dd8-1ba4-4140-99d0-d34c4c98ca0f",
+    title: "Base Plus One",
+    short_description:
+      "React + Supabase relocation platform: scored quizzes, paid workspace, Airwallex checkout, and a staff review console with handbook PDFs and session notes.",
+    long_description:
+      "Built and shipped a production web app for Base Plus One’s V2.1 launch: versioned questionnaires with deterministic scoring, Airwallex checkout and entitlements, a household workspace (handbook PDFs, Calendly sessions, notifications), and a staff review queue with advisor invites and case release. Scoring and product rules follow the client’s workbooks and launch contract rather than inventing ranking logic. Clients complete public quizzes and paid assessments; households get a workspace for purchases, cases, documents, and advisor sessions. Staff manage reviews, releases, and call notes from an admin console.",
+    image_url: "/assets/base-plus-one-thumb.jpg",
+    demo_url: "https://www.baseplusone.com/countryfit?from=site_redirect",
+    github_url: "",
+    tags: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Supabase",
+      "Airwallex",
+      "Edge Functions",
+      "Relocation",
+      "SaaS",
+    ],
+    challenges: [
+      "Porting deterministic scoring engines with parity against Kevin’s r44 preference / citizenship reference cases",
+      "Protecting household client data with RLS while routing privileged ops through service-role Edge Functions",
+      "Modeling product SKUs, entitlements, 13-month service terms, and Strategy Intensive upgrade / pack limits",
+      "Shipping handbook multi-page PDFs, session consent, and private call-recording storage with staff-approved notes",
+    ],
+    features: [
+      "Deterministic Country Fit, Exploratory, Single Base, and Citizenship scoring with versioned engines",
+      "Versioned quiz instruments tied to exact form_version on every submission",
+      "Airwallex checkout, webhook reconcile, and household entitlements",
+      "Household workspace: handbook chapters, PDF downloads, case timeline, Calendly sessions",
+      "Staff console with admin vs advisor roles, invites, case assignment, and AI-assisted call drafts",
+      "Postmark, Calendly, Crisp integrations with feature-flagged launch gates",
+    ],
+    technologies:
+      '[{"name": "React", "description": "TypeScript frontend with Vite and React Router"}, {"name": "Supabase", "description": "Postgres, Auth, Storage, RLS, and Edge Functions (Deno)"}, {"name": "Airwallex", "description": "Payment intents, webhooks, and entitlement reconcile"}, {"name": "Postmark", "description": "OTP and transactional email"}, {"name": "Calendly", "description": "Booking API sync and webhooks"}, {"name": "OpenAI", "description": "Staff call write-up drafts with human approval"}, {"name": "Framer Motion", "description": "Motion for UI presence and hierarchy"}, {"name": "Vitest", "description": "Scoring parity, catalog, and flow tests"}, {"name": "Vercel", "description": "Frontend hosting with Vite env configuration"}]',
+    timeline: "Completed — V2.1 launch",
+    team: "Solo / client advisory firm",
+    category: "web",
+    gallery_urls: [
+      "/assets/base-plus-one-1.png",
+      "/assets/base-plus-one-2.png",
+    ],
+    reflection:
+      "This engagement reinforced shipping against a fixed client contract: keep scoring deterministic and parity-tested, treat instruments as versioned data, and put privileged payment/release paths behind Edge Functions rather than client-trusted logic. Feature flags for Strategy Intensive and Samsara kept the launch gate honest without blocking the rest of the workspace.",
+    created_at: "2026-10-17 00:00:00+00",
+  },
+  {
     idx: 0,
     id: "9cc23d10-1aea-4a20-92dd-95ce88764fa7",
     title: "Kudoz Reviews",

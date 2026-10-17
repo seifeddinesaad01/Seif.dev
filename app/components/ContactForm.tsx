@@ -161,8 +161,8 @@ const ContactForm: React.FC = () => {
                 <ErrorMessage name="message" component="div" className="text-red-600 text-sm mt-1" />
               </div>
 
-              <Button type="submit" disabled={isSubmitting} className="w-full py-4 font-semibold bg-blue-500 hover:bg-blue-600">
-                {isSubmitting ? 'Submitting...' : 'Submit'}
+              <Button type="submit" disabled={isSubmitting} className="w-full rounded-full py-4 font-semibold bg-ink hover:bg-signal">
+                {isSubmitting ? 'Sending…' : 'Send message'}
               </Button>
             </Form>
           )}
