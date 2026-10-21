@@ -29,21 +29,21 @@ interface ProjectsListProps {
 const tabs: { id: Category; label: string; icon: ReactNode; color: string }[] = [
   {
     id: "web",
-    label: "Web",
+    label: "Web Development",
     icon: <FaGlobe />,
-    color: "bg-ink",
+    color: "from-blue-500 to-cyan-500",
   },
   {
     id: "mobile",
-    label: "Mobile",
+    label: "Mobile Development",
     icon: <FaMobileAlt />,
-    color: "bg-ink",
+    color: "from-violet-500 to-fuchsia-500",
   },
   {
     id: "landing",
-    label: "Landing",
+    label: "Landing Pages",
     icon: <FaRocket />,
-    color: "bg-ink",
+    color: "from-amber-500 to-orange-500",
   },
 ];
 
@@ -52,25 +52,25 @@ const tabAccent: Record<
   { color: string; tag: string; btn: string; border: string; panel: string }
 > = {
   web: {
-    color: "text-signal",
-    tag: "text-ink border-line bg-white/70",
-    btn: "bg-signal hover:bg-teal-800",
-    border: "border-line",
-    panel: "bg-mist/80",
+    color: "from-blue-500 to-cyan-500",
+    tag: "text-blue-600 border-blue-100 bg-white",
+    btn: "from-blue-600 to-cyan-600",
+    border: "border-blue-100",
+    panel: "bg-blue-50/40",
   },
   mobile: {
-    color: "text-signal",
-    tag: "text-ink border-line bg-white/70",
-    btn: "bg-signal hover:bg-teal-800",
-    border: "border-line",
-    panel: "bg-mist/80",
+    color: "from-violet-500 to-fuchsia-500",
+    tag: "text-violet-600 border-violet-100 bg-white",
+    btn: "from-violet-600 to-fuchsia-600",
+    border: "border-violet-100",
+    panel: "bg-violet-50/40",
   },
   landing: {
-    color: "text-signal",
-    tag: "text-ink border-line bg-white/70",
-    btn: "bg-signal hover:bg-teal-800",
-    border: "border-line",
-    panel: "bg-mist/80",
+    color: "from-amber-500 to-orange-500",
+    tag: "text-amber-700 border-amber-100 bg-white",
+    btn: "from-amber-500 to-orange-600",
+    border: "border-amber-100",
+    panel: "bg-amber-50/40",
   },
 };
 
@@ -131,44 +131,48 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
   const activeCardAccent = tabAccent[activeTab];
 
   return (
-    <div className="min-h-screen px-5 py-16 md:px-8 md:py-20">
-      <div className="mx-auto mb-12 max-w-6xl">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-mono text-xs uppercase tracking-[0.28em] text-muted-ink"
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mb-12 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl"
         >
-          Portfolio
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
-          className="mt-3 font-display text-4xl font-bold text-ink md:text-6xl"
-        >
-          Selected <span className={activeColor}>work</span>
-        </motion.h1>
-        <p className="mt-4 max-w-xl text-lg text-muted-ink">
-          Production apps, field-ops platforms, and product surfaces shipped for
-          real clients.
-        </p>
+          My{" "}
+          <span
+            className={`bg-gradient-to-r ${activeColor} bg-clip-text text-transparent transition-all duration-500`}
+          >
+            Projects
+          </span>
+        </motion.h2>
+
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: "100px" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className={`mx-auto h-1 rounded-full bg-gradient-to-r ${activeColor} transition-all duration-500`}
+        />
       </div>
 
-      <div className="mb-12 flex justify-start px-0 md:justify-center">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-1 rounded-full border border-line bg-white/60 p-1.5 backdrop-blur-md">
+      {/* Tab Bar */}
+      <div className="mb-14 flex justify-center px-2">
+        <div className="relative flex max-w-full flex-wrap items-center justify-center gap-1 rounded-2xl border border-gray-100 bg-white p-1.5 shadow-lg">
           {tabs.map((tab) => {
             const isActive = tab.id === activeTab;
             return (
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
-                className="relative z-10 flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-200 sm:px-5"
-                style={{ color: isActive ? "white" : "#5b6b7c" }}
+                className="relative z-10 flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200 sm:px-6"
+                style={{ color: isActive ? "white" : "#6b7280" }}
               >
                 {isActive && (
                   <motion.span
                     layoutId="tab-pill"
-                    className={`absolute inset-0 rounded-full ${tab.color}`}
+                    className={`absolute inset-0 rounded-xl bg-gradient-to-r ${tab.color} shadow-md`}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -182,6 +186,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
         </div>
       </div>
 
+      {/* Project Cards */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTab}
@@ -192,7 +197,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
           className="mx-auto grid max-w-6xl grid-cols-1 gap-6 xl:grid-cols-2"
         >
           {filtered.length === 0 ? (
-            <div className="col-span-full py-24 text-center text-lg font-medium text-muted-ink">
+            <div className="col-span-full py-24 text-center text-lg font-medium text-gray-400">
               No {emptyTabLabel[activeTab]} projects yet. Stay tuned!
             </div>
           ) : (
@@ -202,24 +207,23 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: index * 0.08 }}
-                className={`overflow-hidden rounded-[1.75rem] border bg-white/70 shadow-lg shadow-ink/5 backdrop-blur-sm transition-all duration-300 ${activeCardAccent.border}`}
+                className={`overflow-hidden rounded-3xl border bg-white shadow-lg transition-all duration-300 ${activeCardAccent.border}`}
               >
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-mist">
-                  <Image
-                    src={project.image_url || fallbackImage}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 1280px) 100vw, 560px"
-                    className="object-cover object-top"
-                  />
-                </div>
-
                 <div className="p-5 md:p-6">
-                  <h3 className="font-display text-xl font-bold text-ink md:text-2xl">
+                  <div className="relative h-52 w-full overflow-hidden rounded-2xl border border-gray-100">
+                    <Image
+                      src={project.image_url || fallbackImage}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  <h3 className="mt-4 text-xl font-bold text-gray-900 md:text-2xl">
                     {project.title}
                   </h3>
 
-                  <p className="mt-2 line-clamp-2 text-muted-ink">
+                  <p className="mt-2 line-clamp-2 text-gray-600">
                     {project.short_description}
                   </p>
 
@@ -237,7 +241,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                   <div className="mt-5 flex flex-wrap gap-3">
                     <button
                       onClick={() => openPreview(project)}
-                      className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold text-white ${activeCardAccent.btn}`}
+                      className={`inline-flex items-center gap-2 rounded-lg bg-gradient-to-r px-4 py-2.5 text-sm font-medium text-white ${activeCardAccent.btn}`}
                     >
                       <FaExternalLinkAlt className="text-xs" />
                       Preview
@@ -248,7 +252,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                         href={project.demo_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-signal"
+                        className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white"
                       >
                         <FaGlobe />
                         Live

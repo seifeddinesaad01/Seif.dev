@@ -1,130 +1,145 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import {
+  Menu,
+  X,
+  Github,
+  Linkedin,
+} from 'lucide-react';
 
 const links = [
-  { label: "Work", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Hire me", href: "/hire-me" },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Hire Me', href: '/hire-me' },
 ];
 
 const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 10);
     };
-  }, [isOpen]);
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
-      <header
+      <nav
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass-panel border-b border-line shadow-sm" : "bg-transparent"
+          isScrolled
+            ? 'bg-white/70 backdrop-blur-md shadow-sm'
+            : 'bg-transparent'
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
-          <Link
-            href="/"
-            className="font-display text-xl font-700 tracking-tight text-ink md:text-2xl"
-            style={{ fontWeight: 700 }}
-          >
-            seif<span className="text-signal">.dev</span>
-          </Link>
+        <div className="container mx-auto py-4 px-4 flex items-center justify-between">
+          {/* Logo */}
+          <div className="text-xl font-semibold text-gray-900 cursor-pointer group">
+            <span className="text-blue-500">seif</span><span className='transform transition-all duration-250 ease-out group-hover:pl-1'>.dev</span>
+          </div>
 
-          <nav className="hidden items-center gap-1 md:flex">
-            {links.map(({ label, href }) => {
-              const active = pathname === href || pathname.startsWith(`${href}/`);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                    active
-                      ? "bg-ink text-white"
-                      : "text-muted-ink hover:bg-white/60 hover:text-ink"
-                  }`}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-            <Link
-              href="/hire-me"
-              className="ml-2 rounded-full bg-signal px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800"
-            >
-              Get in touch
-            </Link>
-          </nav>
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center space-x-6">
+            <ul className="flex items-center space-x-4 text-sm font-medium">
+              {links.map(({ label, href }) => {
+                const isActive = pathname === href;
+                return (
+                  <li key={label}>
+                    <Link
+                      href={href}
+                      className={`px-3 py-2 transition-colors ${isActive
+                        ? 'text-blue-500  border-blue-500'
+                        : 'text-muted-foreground hover:text-blue-600 '
+                        }`}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <Button
+              onClick={() => router.push("/hire-me")}
+              className="rounded-md px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white">
+              Get in Touch
+            </Button>
+          </div>
 
+          {/* Mobile Hamburger */}
           <button
-            type="button"
             onClick={() => setIsOpen(true)}
-            className="rounded-full border border-line bg-white/50 p-2.5 md:hidden"
+            className="md:hidden focus:outline-none"
             aria-label="Open menu"
           >
-            <Menu className="h-5 w-5 text-ink" />
+            <Menu className="w-6 h-6 text-gray-700" />
           </button>
         </div>
-      </header>
+      </nav>
 
+      {/* Mobile Sidebar */}
       <div
-        className={`fixed inset-0 z-[60] bg-ink text-white transition-transform duration-300 ease-out md:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
-        <div className="flex items-center justify-between px-5 py-4">
-          <span className="font-display text-xl font-bold">
-            seif<span className="text-signal-bright">.dev</span>
-          </span>
+        <div className="flex justify-between items-center p-4 border-b border-gray-200">
+          <span className="text-xl font-semibold text-gray-900">Menu</span>
           <button
-            type="button"
             onClick={() => setIsOpen(false)}
-            className="rounded-full border border-white/20 p-2.5"
+            className="focus:outline-none"
             aria-label="Close menu"
           >
-            <X className="h-5 w-5" />
+            <X className="w-6 h-6 text-gray-700" />
           </button>
         </div>
-        <div className="flex h-[calc(100%-72px)] flex-col items-start justify-center gap-6 px-8">
-          <Link
-            href="/"
-            onClick={() => setIsOpen(false)}
-            className="font-display text-4xl font-semibold"
-          >
-            Home
-          </Link>
+
+        <div className="flex flex-col items-center justify-center h-full space-y-8 text-xl font-medium">
           {links.map(({ label, href }) => (
             <Link
-              key={href}
+              key={label}
               href={href}
               onClick={() => setIsOpen(false)}
-              className="font-display text-4xl font-semibold"
+              className={`${pathname === href
+                ? 'text-blue-600 underline'
+                : 'text-gray-800 hover:text-blue-600'
+                }`}
             >
               {label}
             </Link>
           ))}
-          <Link
-            href="/hire-me"
-            onClick={() => setIsOpen(false)}
-            className="mt-4 rounded-full bg-signal-bright px-6 py-3 text-base font-semibold text-ink"
-          >
-            Start a project
-          </Link>
+          <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 mt-4">
+            Get in Touch
+          </Button>
+
+          {/* Social Icons */}
+          <div className="flex space-x-6 mt-10">
+            <a
+              href="https://github.com/your-username"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-700 hover:text-black"
+            >
+              <Github className="w-6 h-6" />
+            </a>
+            <a
+              href="https://linkedin.com/in/your-username"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-700 hover:text-blue-700"
+            >
+              <Linkedin className="w-6 h-6" />
+            </a>
+          </div>
         </div>
       </div>
     </>
