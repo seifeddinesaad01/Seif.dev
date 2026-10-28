@@ -1,77 +1,112 @@
 'use client'
 
 import React from 'react'
-import { Button } from '@/components/ui/button'
-import { Rocket, ArrowRight, Bot } from 'lucide-react'
-import { stackIcons, textsToAnimate } from '@/Data/data'
-import AnimatedText from './AnimatedText'
-import CodeIcon from './CodeIcon'
-import FadeInSection from './FadeInSection'
+import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { ArrowUpRight, ArrowDown } from 'lucide-react'
+import { stack } from '@/Data/data'
+import { PROJECTS } from '@/Data/projects'
+
+const ease = [0.22, 1, 0.36, 1] as const
+
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 28, filter: 'blur(8px)' },
+  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+  transition: { duration: 0.9, ease, delay },
+})
+
+const stats = [
+  { value: '5+', label: 'Years shipping production code' },
+  { value: `${PROJECTS.length}`, label: 'Products & case studies' },
+  { value: '24h', label: 'Typical response time' },
+  { value: 'Top Rated', label: 'Freelancer on Upwork' },
+]
 
 const Hero = () => {
   return (
-    <FadeInSection>
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-4 py-16">
-        <div className="flex justify-center mt-[-3rem] mb-8">
-          <div className="bg-blue-100 text-blue-900  px-4 py-1 rounded-full text-sm font-medium flex items-center">
-            <Bot className="w-4 h-4 mr-2" />
-            AI-Powered Development
-          </div>
-        </div>
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 flex flex-col items-center justify-center gap-4">
-          Build Your MVP
-          {/* Animated Gradient Text */}
-          <AnimatedText texts={textsToAnimate} />
+    <section className="relative overflow-hidden pt-36 md:pt-44">
+      <div aria-hidden className="bg-grid pointer-events-none absolute inset-0" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[-20%] h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-brand/[0.07] blur-[120px]"
+      />
+
+      <div className="relative mx-auto max-w-6xl px-5 md:px-8">
+        <motion.div {...rise(0)} className="mb-10 inline-flex items-center gap-3 rounded-full border border-line-strong bg-surface/60 py-1.5 pl-1.5 pr-4 backdrop-blur">
+          <Image
+            src="/assets/hero-portrait.webp"
+            alt="Seif Eddine Saad"
+            width={32}
+            height={32}
+            className="size-8 rounded-full object-cover"
+            priority
+          />
+          <span className="flex items-center gap-2 text-sm text-dim">
+            <span className="size-2 animate-pulse-dot rounded-full bg-green-400" />
+            Available for new projects
+          </span>
+        </motion.div>
+
+        <h1 className="text-[clamp(3rem,9.5vw,8.25rem)] font-medium leading-[0.92] tracking-[-0.045em]">
+          <motion.span {...rise(0.08)} className="block">
+            I build products
+          </motion.span>
+          <motion.span {...rise(0.16)} className="block">
+            that <span className="font-serif font-normal italic tracking-[-0.02em] text-brand">actually</span> ship.
+          </motion.span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-          From Concept to Production-Ready Application
-        </p>
+        <div className="mt-12 grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-end">
+          <motion.p {...rise(0.28)} className="max-w-xl text-lg leading-relaxed text-dim md:text-xl">
+            I&apos;m <span className="text-fg">Seif Eddine Saad</span>, a full stack developer turning ideas into
+            fast, scalable MVPs, internal tools and AI-powered apps — from first sketch to production.
+          </motion.p>
 
-        {/* Stack Icons */}
-        <div className="flex justify-center items-center gap-2 mb-8">
-          {stackIcons.map((icon, index) => (
-            <div className="flex justify-center items-center gap-1 text-gray-500" key={index}>
-              <CodeIcon name={icon.name} />
-              <span className="text-gray-600">•</span>
+          <motion.div {...rise(0.36)} className="flex flex-wrap gap-3 md:justify-end">
+            <Link
+              href="/hire-me#contact"
+              className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 font-medium text-white transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              Start a project
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              href="#work"
+              className="group inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3.5 font-medium text-fg transition-colors hover:bg-surface-2"
+            >
+              Selected work
+              <ArrowDown className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+            </Link>
+          </motion.div>
+        </div>
+
+        <motion.dl
+          {...rise(0.48)}
+          className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="bg-canvas px-5 py-6 md:px-6">
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="text-3xl font-medium tracking-tight md:text-4xl">{s.value}</dd>
+              <dd className="mt-1.5 text-sm text-faint">{s.label}</dd>
             </div>
           ))}
+        </motion.dl>
+      </div>
+
+      {/* Stack marquee */}
+      <div className="relative mt-24 border-y border-line py-5 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+        <div className="flex w-max animate-marquee gap-12 whitespace-nowrap">
+          {[...stack, ...stack].map((name, i) => (
+            <span key={i} className="flex items-center gap-12 font-mono text-sm uppercase tracking-[0.18em] text-faint">
+              {name}
+              <span className="text-brand">✦</span>
+            </span>
+          ))}
         </div>
-
-        {/* Description */}
-        <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mb-8">
-          Expert Full Stack Developer specializing in rapid MVP development and AI integration.
-          Over 5 years of experience turning innovative ideas into production-ready applications.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-          {/* Start Your Project Button with Tailwind hover effects */}
-          <Button
-            size="lg"
-            variant="default"
-            asChild
-            className="group bg-blue-500 hover:bg-blue-600 rounded-xl px-8 py-6 font-semibold cursor-pointer transform transition-all duration-150 ease-out hover:shadow-2xl"
-          >
-            <Link href="/hire-me" className="flex items-center gap-2 transition-all duration-150 ease-out group-hover:gap-4">
-              <span>Start Your Project</span>
-              <Rocket className="w-5 h-5 text-white" />
-            </Link>
-          </Button>
-
-          {/* View Portfolio Button */}
-          <Button size="lg" variant="outline" asChild className="cursor-pointer py-6 px-8 rounded-xl">
-            <Link href="/projects" className="flex items-center gap-2">
-              View Portfolio
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
-    </FadeInSection>
+      </div>
+    </section>
   )
 }
 

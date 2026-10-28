@@ -6,13 +6,13 @@ import PersonalPhilosophy from "./components/PersonalPhilosophy";
 import CallToAction from "./components/CallToAction";
 
 const AboutPage = () => (
-  <div className="flex flex-col min-h-screen">
+  <main className="flex min-h-screen flex-col">
     <Hero />
     <PersonalPhilosophy />
     <TechnicalArsenal />
     <StayConnected />
     <CallToAction />
-  </div>
+  </main>
 );
 
 export default AboutPage;

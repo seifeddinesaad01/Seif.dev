@@ -2,381 +2,207 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaGithub,
-  FaExternalLinkAlt,
-  FaArrowLeft,
-  FaRegClock,
-  FaCode,
-  FaGooglePlay,
-  FaApple,
-} from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import { ArrowLeft, ArrowUpRight, Github } from "lucide-react";
+import { FaApple, FaGooglePlay } from "react-icons/fa";
 import { ProjectDetails as ProjectDetailsType } from "../types/project";
-import { MdLiveTv } from "react-icons/md";
+import FadeInSection from "@/app/components/FadeInSection";
 
 interface ProjectDetailsProps {
   project: ProjectDetailsType;
-  onClose: () => void;
 }
 
-const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
-  // safe defaults
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const ProjectDetails = ({ project }: ProjectDetailsProps) => {
   const tags = project.tags ?? [];
   const challenges = project.challenges ?? [];
   const features = project.features ?? [];
-  const gallery = project.gallery_urls ?? [];
+  const gallery = (project.gallery_urls ?? []).filter(Boolean);
 
-  // Normalize technologies: sometimes stored as a JSON string in your static data
+  // Technologies are stored as a JSON string in the static data
   const technologies: Array<{ name?: string; description?: string }> = (() => {
     if (!project.technologies) return [];
     try {
       if (typeof project.technologies === "string") {
         const parsed = JSON.parse(project.technologies);
-        if (Array.isArray(parsed)) return parsed;
-        return [];
+        return Array.isArray(parsed) ? parsed : [];
       }
-      if (Array.isArray(project.technologies)) {
-        return project.technologies as any;
-      }
-      return [];
-    } catch (err) {
-      // fallback: return empty array if parse fails
+      return Array.isArray(project.technologies) ? (project.technologies as any) : [];
+    } catch {
       return [];
     }
   })();
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label={`${project.title} details`}
-    >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="fixed top-6 right-6 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-lg transition-all"
-        aria-label="Close project"
-      >
-        <IoMdClose className="text-white text-2xl" />
-      </button>
+  const meta = [
+    { k: "Timeline", v: project.timeline },
+    { k: "Team", v: project.team },
+    {
+      k: "Type",
+      v: project.category === "mobile" ? "Mobile app" : project.category === "landing" ? "Landing page" : "Web platform",
+    },
+  ].filter((m) => m.v);
 
-      <div className="flex min-h-screen items-center justify-center p-4">
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="relative w-full max-w-6xl bg-white rounded-3xl overflow-hidden shadow-2xl"
+  const links = [
+    project.demo_url && { href: project.demo_url, label: "Visit live site", icon: <ArrowUpRight className="size-4" />, primary: true },
+    project.github_url && { href: project.github_url, label: "Source code", icon: <Github className="size-4" /> },
+    project.google_play_url && { href: project.google_play_url, label: "Google Play", icon: <FaGooglePlay /> },
+    project.app_store_url && { href: project.app_store_url, label: "App Store", icon: <FaApple /> },
+  ].filter(Boolean) as { href: string; label: string; icon: React.ReactNode; primary?: boolean }[];
+
+  return (
+    <article className="relative pt-32 md:pt-40">
+      <div className="mx-auto max-w-6xl px-5 md:px-8">
+        <Link
+          href="/projects"
+          className="group mb-12 inline-flex items-center gap-2 text-sm text-dim transition-colors hover:text-fg"
         >
-          {/* Hero Section */}
-          <div className="relative h-96">
-            {project.image_url ? (
-              <>
-                <Image
-                  src={project.image_url}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/80" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h1 className="text-4xl md:text-5xl font-bold max-w-3xl">
-                    {project.title}
-                  </h1>
-                  <p className="mt-4 text-xl text-white/90 max-w-3xl">
-                    {project.short_description}
-                  </p>
+          <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
+          All projects
+        </Link>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.9, ease }}
+          className="max-w-5xl text-[clamp(2.75rem,7vw,6rem)] font-medium leading-[0.95] tracking-[-0.045em]"
+        >
+          {project.title}
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease, delay: 0.12 }}
+          className="mt-10 grid gap-10 border-t border-line pt-10 md:grid-cols-[1.4fr_1fr]"
+        >
+          <p className="max-w-2xl text-lg leading-relaxed text-dim md:text-xl">{project.short_description}</p>
+          <div className="space-y-6">
+            <dl className="grid grid-cols-2 gap-6">
+              {meta.map((m) => (
+                <div key={m.k}>
+                  <dt className="font-mono text-xs uppercase tracking-[0.18em] text-faint">{m.k}</dt>
+                  <dd className="mt-1.5 text-sm">{m.v}</dd>
                 </div>
-              </>
-            ) : (
-              <div className="h-96 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                <div className="text-center px-6">
-                  <h1 className="text-3xl font-bold text-gray-700">{project.title}</h1>
-                  <p className="mt-3 text-gray-500 max-w-2xl">{project.short_description}</p>
-                </div>
+              ))}
+            </dl>
+            {links.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
+                      l.primary ? "bg-brand text-white hover:bg-brand/85" : "border border-line-strong hover:bg-surface-2"
+                    }`}
+                  >
+                    {l.label} {l.icon}
+                  </a>
+                ))}
               </div>
             )}
           </div>
-
-          {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
-            {/* Left Column - Details */}
-            <div className="lg:col-span-2">
-              {/* Project Overview */}
-              <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="mb-12"
-              >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-blue-500 inline-block">
-                  Project Overview
-                </h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  {project.long_description}
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl">
-                    <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900 mb-4">
-                      <FaRegClock className="text-blue-500" />
-                      Challenges
-                    </h3>
-                    <ul className="space-y-2">
-                      {challenges.length ? (
-                        challenges.map((challenge, i) => (
-                          <li key={i} className="flex items-start">
-                            <span className="text-blue-500 mr-2">•</span>
-                            <span className="text-gray-700">{challenge}</span>
-                          </li>
-                        ))
-                      ) : (
-                        <li className="text-gray-500">No challenges listed.</li>
-                      )}
-                    </ul>
-                  </div>
-
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl">
-                    <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900 mb-4">
-                      <FaCode className="text-green-500" />
-                      Key Features
-                    </h3>
-                    <ul className="space-y-2">
-                      {features.length ? (
-                        features.map((feature, i) => (
-                          <li key={i} className="flex items-start">
-                            <span className="text-green-500 mr-2">•</span>
-                            <span className="text-gray-700">{feature}</span>
-                          </li>
-                        ))
-                      ) : (
-                        <li className="text-gray-500">No features listed.</li>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </motion.section>
-
-              {/* Technology Stack */}
-              <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mb-12"
-              >
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-purple-500 inline-block">
-                  Technology Stack
-                </h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {technologies.length ? (
-                    technologies.map((tech, i) => (
-                      <div
-                        key={i}
-                        className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
-                      >
-                        <h3 className="font-semibold text-gray-900 mb-2">{tech.name ?? "Tech"}</h3>
-                        <p className="text-sm text-gray-600">{tech.description ?? ""}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="col-span-2 text-gray-500">No technologies listed.</div>
-                  )}
-                </div>
-              </motion.section>
-            </div>
-
-            {/* Right Column - Metadata & Links */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="sticky top-8 bg-gradient-to-b from-gray-50 to-white p-6 rounded-2xl border border-gray-200 shadow-sm"
-              >
-                <div className="flex flex-col gap-6">
-                  {(project.github_url || project.demo_url || project.google_play_url || project.app_store_url) && (
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                        Project Links
-                      </h3>
-                      <div className="flex flex-col gap-3">
-                        {project.github_url && (
-                          <Link
-                            href={project.github_url}
-                            target="_blank"
-                            className="flex items-center justify-between gap-3 px-4 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors"
-                          >
-                            <span className="flex items-center gap-2">
-                              <FaGithub />
-                              Code
-                            </span>
-                            <span className="bg-white/20 px-2 py-1 rounded text-xs">
-                              GitHub
-                            </span>
-                          </Link>
-                        )}
-
-                        {project.demo_url && (
-                          <Link
-                            href={project.demo_url}
-                            target="_blank"
-                            className="flex items-center justify-between gap-3 px-4 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
-                          >
-                            <span className="flex items-center gap-2">
-                              <MdLiveTv />
-                              Demo
-                            </span>
-                            <span className="bg-white/20 px-2 py-1 rounded text-xs">live</span>
-                          </Link>
-                        )}
-
-                        {project.google_play_url && (
-                          <Link
-                            href={project.google_play_url}
-                            target="_blank"
-                            className="flex items-center justify-between gap-3 px-4 py-3 bg-emerald-700 text-white rounded-lg font-medium hover:bg-emerald-600 transition-colors"
-                          >
-                            <span className="flex items-center gap-2">
-                              <FaGooglePlay />
-                              Google Play
-                            </span>
-                            <span className="bg-white/20 px-2 py-1 rounded text-xs">store</span>
-                          </Link>
-                        )}
-
-                        {project.app_store_url && (
-                          <Link
-                            href={project.app_store_url}
-                            target="_blank"
-                            className="flex items-center justify-between gap-3 px-4 py-3 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700 transition-colors"
-                          >
-                            <span className="flex items-center gap-2">
-                              <FaApple />
-                              App Store
-                            </span>
-                            <span className="bg-white/20 px-2 py-1 rounded text-xs">store</span>
-                          </Link>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="pt-4 border-t border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Project Details</h3>
-                    <div className="space-y-4">
-                      {project.timeline && (
-                        <div>
-                          <h4 className="text-sm font-medium text-gray-500 mb-1">Timeline</h4>
-                          <p className="text-gray-900">{project.timeline}</p>
-                        </div>
-                      )}
-                      {project.team && (
-                        <div>
-                          <h4 className="text-sm font-medium text-gray-500 mb-1">Team</h4>
-                          <p className="text-gray-900">{project.team}</p>
-                        </div>
-                      )}
-                      {project.category && (
-                        <div>
-                          <h4 className="text-sm font-medium text-gray-500 mb-1">Category</h4>
-                          <p className="text-gray-900">{project.category}</p>
-                        </div>
-                      )}
-
-                      {(!project.timeline && !project.team && !project.category) && (
-                        <div className="text-gray-500">No additional details.</div>
-                      )}
-                    </div>
-                  </div>
-
-                  <Link
-                    href="/projects"
-                    className="flex items-center justify-center gap-2 mt-4 px-4 py-3 bg-white text-gray-800 rounded-lg font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
-                  >
-                    <FaArrowLeft />
-                    View All Projects
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Gallery Section */}
-          {gallery.length > 0 && (
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="px-8 pb-12"
-            >
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-amber-500 inline-block">
-                Project Gallery
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {gallery.map((url, index) => (
-                  <div
-                    key={index}
-                    className="relative h-64 rounded-xl overflow-hidden border-2 border-white shadow-lg hover:scale-[1.02] transition-transform"
-                  >
-                    {url ? (
-                      <Image
-                        src={url}
-                        alt={`Gallery image ${index + 1} for ${project.title}`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="h-64 bg-gray-100 flex items-center justify-center text-gray-400">
-                        No image
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-          )}
-
-          {/* Reflection Section */}
-          {project.reflection && (
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="bg-gradient-to-r from-blue-50 to-cyan-50 px-8 py-12"
-            >
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-2 border-b-2 border-blue-500 inline-block">
-                  Project Reflection
-                </h2>
-                <div className="space-y-4">
-                  {String(project.reflection)
-                    .split("\n")
-                    .map((paragraph: any, index: any) => (
-                      <p key={index} className="text-gray-700">
-                        {paragraph}
-                      </p>
-                    ))}
-                </div>
-              </div>
-            </motion.section>
-          )}
         </motion.div>
       </div>
-    </motion.div>
+
+      {project.image_url && (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease, delay: 0.2 }}
+          className="mx-auto mt-16 max-w-6xl px-5 md:px-8"
+        >
+          <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-line bg-surface-2">
+            <Image src={project.image_url} alt={project.title} fill priority sizes="100vw" className="object-cover object-top" />
+          </div>
+        </motion.div>
+      )}
+
+      <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
+        {/* Overview */}
+        <FadeInSection className="grid gap-8 md:grid-cols-[1fr_2fr]">
+          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">Overview</h2>
+          <p className="text-xl leading-relaxed text-fg/90 md:text-2xl md:leading-relaxed">
+            {project.long_description}
+          </p>
+        </FadeInSection>
+
+        {(challenges.length > 0 || features.length > 0) && (
+          <div className="mt-24 grid gap-5 md:grid-cols-2">
+            {[
+              { title: "Challenges", items: challenges },
+              { title: "Key features", items: features },
+            ]
+              .filter((b) => b.items.length)
+              .map((block, i) => (
+                <FadeInSection key={block.title} delay={i * 0.08}>
+                  <div className="h-full rounded-3xl border border-line bg-surface p-8">
+                    <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-faint">{block.title}</h3>
+                    <ul className="mt-6 space-y-4">
+                      {block.items.map((item, j) => (
+                        <li key={j} className="grid grid-cols-[2rem_1fr] text-dim">
+                          <span className="font-mono text-xs leading-6 text-brand">{String(j + 1).padStart(2, "0")}</span>
+                          <span className="leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </FadeInSection>
+              ))}
+          </div>
+        )}
+
+        {technologies.length > 0 && (
+          <FadeInSection className="mt-24 grid gap-8 md:grid-cols-[1fr_2fr]">
+            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">Stack</h2>
+            <dl className="divide-y divide-line border-y border-line">
+              {technologies.map((tech, i) => (
+                <div key={i} className="grid gap-1 py-4 sm:grid-cols-[180px_1fr] sm:gap-6">
+                  <dt className="font-medium">{tech.name ?? "Tech"}</dt>
+                  <dd className="text-dim">{tech.description ?? ""}</dd>
+                </div>
+              ))}
+            </dl>
+          </FadeInSection>
+        )}
+
+        {gallery.length > 0 && (
+          <div className="mt-24">
+            <h2 className="mb-8 font-mono text-xs uppercase tracking-[0.2em] text-brand">Gallery</h2>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {gallery.map((url, index) => (
+                <FadeInSection key={index} delay={(index % 2) * 0.08}>
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-line bg-surface-2">
+                    <Image
+                      src={url}
+                      alt={`Gallery image ${index + 1} for ${project.title}`}
+                      fill
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </FadeInSection>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {project.reflection && (
+          <FadeInSection className="mt-24 grid gap-8 md:grid-cols-[1fr_2fr]">
+            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">Reflection</h2>
+            <div className="space-y-4 font-serif text-2xl leading-snug text-fg/90 md:text-3xl">
+              {String(project.reflection)
+                .split("\n")
+                .filter(Boolean)
+                .map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+            </div>
+          </FadeInSection>
+        )}
+      </div>
+    </article>
   );
 };
 

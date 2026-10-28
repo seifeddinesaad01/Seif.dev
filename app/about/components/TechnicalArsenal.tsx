@@ -1,64 +1,53 @@
+"use client";
+
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Briefcase, Rocket, CodeXml, ShoppingBag } from 'lucide-react';
+import { Sparkles, Server, Cloud, ShoppingBag } from 'lucide-react';
+import FadeInSection from '@/app/components/FadeInSection';
+import SectionHeading from '@/app/components/SectionHeading';
+import SpotlightCard from '@/app/components/SpotlightCard';
 
 const skills = [
-  {
-    title: 'Frontend Magic ✨',
-    icon: <Sparkles className="w-6 h-6 text-indigo-600" />, 
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-  },
-  {
-    title: 'Backend Wizardry 🧙‍♂️',
-    icon: <Briefcase className="w-6 h-6 text-indigo-600" />, 
-    items: ['Node.js', 'Express', 'Python', 'PostgreSQL'],
-  },
-  {
-    title: 'DevOps Sorcery 🧙‍♀️',
-    icon: <Rocket className="w-6 h-6 text-indigo-600" />, 
-    items: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'],
-  },
-  {
-    title: 'Platforms & commerce 🛒',
-    icon: <ShoppingBag className="w-6 h-6 text-indigo-600" />,
-    items: ['Shopify', 'WordPress', 'Framer', 'Webflow'],
-  },
+  { title: 'Frontend', icon: Sparkles, items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'] },
+  { title: 'Backend', icon: Server, items: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'Supabase'] },
+  { title: 'DevOps', icon: Cloud, items: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'] },
+  { title: 'Platforms & commerce', icon: ShoppingBag, items: ['Shopify', 'WordPress', 'Framer', 'Webflow'] },
 ];
 
 const TechnicalArsenal = () => {
   return (
-    <section className="py-16 px-4 dark:bg-background">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold ">
-          Technical Arsenal <span className="ml-2">💪</span>
-        </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-300">
-          Tools and technologies I&apos;ve mastered over the years
-        </p>
-      </div>
+    <section className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-5 py-28 md:px-8 md:py-36">
+        <SectionHeading
+          index="02"
+          label="Toolkit"
+          title={
+            <>
+              Tools I reach for{' '}
+              <span className="font-serif font-normal italic text-dim">every day.</span>
+            </>
+          }
+          description="Technologies I've used to ship real products over the years."
+        />
 
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-        {skills.map((group) => (
-          <Card key={group.title} className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader className="flex items-center space-x-3">
-              <div className="p-2 bg-indigo-100 rounded-md">
-                {group.icon}
-              </div>
-              <CardTitle className="text-lg font-semibold">
-                {group.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
-                {group.items.map((tech) => (
-                  <li key={tech} className="flex items-center text-sm text-gray-700 dark:text-gray-300">
-                    <CodeXml className="w-4 h-4 mr-2 text-blue-500" /> {tech}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {skills.map((group, i) => (
+            <FadeInSection key={group.title} delay={i * 0.06}>
+              <SpotlightCard className="h-full p-7">
+                <span className="grid size-11 place-items-center rounded-2xl border border-line-strong bg-surface-2 text-brand">
+                  <group.icon className="size-5" />
+                </span>
+                <h3 className="mt-8 text-xl font-medium tracking-tight">{group.title}</h3>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {group.items.map((tech) => (
+                    <li key={tech} className="rounded-full bg-surface-2 px-3 py-1 text-xs text-dim">
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </SpotlightCard>
+            </FadeInSection>
+          ))}
+        </div>
       </div>
     </section>
   );

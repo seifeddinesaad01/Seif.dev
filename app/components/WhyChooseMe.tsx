@@ -1,119 +1,125 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import {
-  Award,
-  Clock,
-  Shield,
-  Users,
-  Star,
-  Quote,
-  ArrowRight,
-} from 'lucide-react';
-import Link from 'next/link';
 import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import FadeInSection from './FadeInSection';
+import SectionHeading from './SectionHeading';
+import { UPWORK_URL } from '@/Data/data';
+
+const steps = [
+  {
+    title: 'Discover',
+    description: 'A short call to understand the problem, the users and what success looks like.',
+  },
+  {
+    title: 'Plan',
+    description: 'Clear scope, milestones and a fixed timeline — no surprises later.',
+  },
+  {
+    title: 'Build',
+    description: 'Weekly demos on a live staging link so you see progress, not promises.',
+  },
+  {
+    title: 'Launch & support',
+    description: 'Production deploy, monitoring and hands-on support after go-live.',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'Seif is an awesome upworker. A pleasure to deal with and always has a positive attitude. Even when things get rough, Seif is always there to back you up. Well recommend.',
+    name: 'Matt Guiver',
+    role: 'Founder, Picturespark',
+  },
+  {
+    quote: 'Easily my best find on Upwork! Love this guy!',
+    name: 'Luke Shepperd',
+    role: 'CEO, Kudoz Reviews',
+  },
+];
 
 export default function WhyChooseMe() {
   return (
-    <section className=" w-full py-20">
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Top Badge */}
-        <div className="flex justify-center mb-6">
-          <div className="bg-blue-100 text-blue-800 px-4 py-1 rounded-full text-sm font-medium flex items-center">
-            <Star className="w-4 h-4 mr-2" aria-hidden="true" />
-            Top-Rated Full Stack Developer
+    <>
+      {/* Process */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-6xl px-5 py-28 md:px-8 md:py-36">
+          <SectionHeading
+            index="03"
+            label="Process"
+            title={
+              <>
+                A simple process,{' '}
+                <span className="font-serif font-normal italic text-dim">built for momentum.</span>
+              </>
+            }
+          />
+          <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, i) => (
+              <FadeInSection key={step.title} delay={i * 0.08} className="bg-canvas">
+                <div className="group flex h-full flex-col p-7 transition-colors duration-300 hover:bg-surface">
+                  <span className="font-serif text-6xl italic leading-none text-faint transition-colors duration-300 group-hover:text-brand">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-10 text-xl font-medium tracking-tight">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-dim">{step.description}</p>
+                </div>
+              </FadeInSection>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Title + Subtitle */}
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-          Why Choose Me As Your Development Partner?{' '}
-          <span className="text-blue-500">🚀</span>
-        </h2>
-        <p className="text-center text-gray-700 mb-14 max-w-3xl mx-auto text-lg">
-          Transform your ideas into reality with expert full-stack development and AI integration services.
-        </p>
-
-        {/* Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          {[
-            {
-              title: 'Expert Full Stack Developer',
-              description: '10+ years of professional experience building scalable applications.',
-              icon: Award,
-            },
-            {
-              title: 'Fast Turnaround',
-              description: 'Efficient development process with quick iterations and delivery.',
-              icon: Clock,
-            },
-            {
-              title: 'Client-Focused Approach',
-              description: 'Clear communication and collaborative development process.',
-              icon: Users,
-            },
-            {
-              title: 'Quality Guaranteed',
-              description: 'Production-ready code following industry best practices.',
-              icon: Shield,
-            },
-          ].map(({ title, description, icon: Icon }) => (
-            <div
-              key={title}
-              className="flex items-start bg-white shadow-md rounded-xl p-6 transition hover:shadow-lg"
+      {/* Testimonials */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-6xl px-5 py-28 md:px-8 md:py-36">
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <SectionHeading
+              index="04"
+              label="Kind words"
+              title={
+                <>
+                  Trusted by founders{' '}
+                  <span className="font-serif font-normal italic text-dim">who ship.</span>
+                </>
+              }
+            />
+            <a
+              href={UPWORK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex shrink-0 items-center gap-2 text-sm text-dim transition-colors hover:text-fg"
             >
-              <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                <Icon className="w-6 h-6 text-blue-600" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                <p className="text-gray-600">{description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Testimonial Section */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative bg-white border border-gray-100 p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-            <Quote className="absolute -top-5 -right-5 text-blue-500 w-10 h-10" aria-hidden="true" />
-            <p className="italic text-gray-800 text-lg mb-6 leading-relaxed">
-              "Seif is an awesome upworker. A pleasure to deal with and always has a positive attitude. Even when things get rough, Seif is always there to back you up. Well recommend"
-            </p>
-            <div className="flex justify-between items-end gap-4">
-              <div>
-                <p className="font-bold text-gray-900">Matt Guiver</p>
-                <p className="text-sm text-gray-600">Founder, Picturespark</p>
-              </div>
-              <Button
-                onClick={() => window.open('https://www.upwork.com/freelancers/seifeddines01', '_blank')}
-                className="text-blue-700 hover:text-blue-700 hover:bg-blue-100 cursor-pointer bg-blue-100 p-2 rounded-xl flex items-center text-sm hover:underline">
-                View on Upwork
-                <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" />
-              </Button>
-            </div>
+              More reviews on Upwork
+              <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </div>
 
-          <div className="relative bg-white border border-gray-100 p-8 rounded-2xl shadow-md hover:shadow-lg transition-shadow">
-            <Quote className="absolute -top-5 -right-5 text-blue-500 w-10 h-10" aria-hidden="true" />
-            <p className="italic text-gray-800 text-lg mb-6 leading-relaxed">
-              "Easily my best find on Upwork! love this guy!"
-            </p>
-            <div className="flex justify-between items-end gap-4">
-              <div>
-                <p className="font-bold text-gray-900">Luke Shepperd</p>
-                <p className="text-sm text-gray-600">CEO, Kudoz Reviews</p>
-              </div>
-              <Button
-                onClick={() => window.open('https://www.upwork.com/freelancers/seifeddines01', '_blank')}
-                className="text-blue-700 hover:text-blue-700 hover:bg-blue-100 cursor-pointer bg-blue-100 p-2 rounded-xl flex items-center text-sm hover:underline">
-                View on Upwork
-                <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" />
-              </Button>
-            </div>
+          <div className="mt-16 grid gap-5 md:grid-cols-[1.4fr_1fr]">
+            {testimonials.map((t, i) => (
+              <FadeInSection key={t.name} delay={i * 0.1}>
+                <figure className="flex h-full flex-col justify-between gap-10 rounded-3xl border border-line bg-surface p-8 md:p-10">
+                  <blockquote className={`font-serif leading-[1.2] text-fg ${i === 0 ? 'text-3xl md:text-4xl' : 'text-4xl md:text-5xl'}`}>
+                    <span className="text-brand">&ldquo;</span>
+                    {t.quote}
+                    <span className="text-brand">&rdquo;</span>
+                  </blockquote>
+                  <figcaption className="flex items-center gap-3">
+                    <span className="grid size-10 place-items-center rounded-full bg-surface-2 text-sm font-medium text-dim">
+                      {t.name.split(' ').map((n) => n[0]).join('')}
+                    </span>
+                    <span>
+                      <span className="block font-medium">{t.name}</span>
+                      <span className="block text-sm text-faint">{t.role}</span>
+                    </span>
+                  </figcaption>
+                </figure>
+              </FadeInSection>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

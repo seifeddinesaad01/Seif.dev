@@ -1,69 +1,41 @@
-// components/CallToAction.tsx
 import React from 'react';
-import { Rocket, Handshake, ArrowRight, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 
 const CallToAction = () => {
     return (
-        <section className="w-full py-16 md:py-24 ">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="relative bg-gradient-to-r from-blue-500 to-indigo-700 rounded-3xl shadow-2xl overflow-hidden">
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 left-0 w-full h-full opacity-10">
-                        <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-white"></div>
-                        <div className="absolute bottom-20 right-10 w-32 h-32 rounded-full bg-white"></div>
-                        <div className="absolute top-1/3 right-1/4 w-16 h-16 rounded-full bg-white"></div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="relative px-6 py-12 md:p-16 flex flex-col md:flex-row items-center justify-between">
-                        <div className="text-center md:text-left mb-10 md:mb-0 md:w-7/12">
-                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-                                Ready to Build Something Extraordinary?
-                            </h2>
-
-                            <div className="flex justify-center md:justify-start mb-8">
-                                <div className="w-24 h-1 bg-gradient-to-r from-cyan-300 to-emerald-300 rounded-full"></div>
-                            </div>
-
-                            <p className="text-lg md:text-xl text-blue-100 max-w-2xl mb-8">
-                                Let's collaborate to create innovative solutions that drive your business forward.
-                                With my expertise in full-stack development and your vision, we can build something
-                                amazing together.
-                            </p>
-
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                                <Link
-                                    href="/hire-me"
-                                    className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-emerald-500 hover:from-cyan-500 hover:to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
-                                >
-                                    Start Your Project
-                                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                                </Link>
-                                <Button size="lg" variant="outline" className="cursor-pointer py-8 px-10 flex items-center gap-2 rounded-xl">
-                                    <Link href="/projects" >
-                                        View my work
-                                    </Link>
-                                    <Check className="w-5 h-5 bg-emerald-400 text-white rounded-full p-1 group-hover:bg-emerald-500" />
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className="hidden md:block relative">
-                            <div className="relative w-64 h-64 flex items-center justify-center">
-                                <div className="absolute inset-0 bg-white bg-opacity-10 backdrop-blur rounded-full animate-pulse-slow"></div>
-                                <div className="absolute w-40 h-40 bg-gradient-to-br from-cyan-300 to-emerald-300 rounded-full"></div>
-                                <div className="relative z-10">
-                                    <Rocket className="w-32 h-32 text-white" />
-                                </div>
-                            </div>
-
-                            <div className="absolute -bottom-6 -left-6 bg-gradient-to-r from-yellow-400 to-amber-500 p-3 rounded-full shadow-lg">
-                                <Handshake className="w-8 h-8 text-white" />
-                            </div>
-                        </div>
-                    </div>
+        <section className="px-5 pb-28 md:px-8 md:pb-36">
+            <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-brand px-7 py-16 text-white md:px-14 md:py-24">
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute -right-20 -top-20 size-80 rounded-full border border-white/20"
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute -right-4 top-10 size-48 rounded-full border border-white/20"
+                />
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/70">Next step</p>
+                <h2 className="mt-6 max-w-3xl text-[clamp(2.25rem,5.5vw,4.5rem)] font-medium leading-[1] tracking-[-0.04em]">
+                    Ready to build something{' '}
+                    <span className="font-serif font-normal italic">extraordinary?</span>
+                </h2>
+                <p className="mt-6 max-w-xl text-lg text-white/80">
+                    Your vision, my full-stack expertise. Let&apos;s turn it into a product that moves your business forward.
+                </p>
+                <div className="mt-10 flex flex-wrap gap-3">
+                    <Link
+                        href="/hire-me#contact"
+                        className="group inline-flex items-center gap-2 rounded-full bg-canvas px-6 py-3.5 font-medium text-fg transition-transform hover:-translate-y-0.5"
+                    >
+                        Start your project
+                        <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </Link>
+                    <Link
+                        href="/projects"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3.5 font-medium transition-colors hover:bg-white/10"
+                    >
+                        View my work
+                    </Link>
                 </div>
             </div>
         </section>
