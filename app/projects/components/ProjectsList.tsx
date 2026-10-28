@@ -5,19 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-  FaApple,
-  FaChevronLeft,
-  FaChevronRight,
-  FaExternalLinkAlt,
-  FaGithub,
-  FaGlobe,
-  FaGooglePlay,
-  FaMobileAlt,
-  FaRocket,
-  FaTimes,
-} from "react-icons/fa";
-import type { ReactNode } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Eye, Github, X } from "lucide-react";
+import { FaApple, FaGooglePlay } from "react-icons/fa";
 import type { ProjectCard } from "../types/project";
 
 type Category = "web" | "mobile" | "landing";
@@ -26,59 +15,19 @@ interface ProjectsListProps {
   projects: ProjectCard[];
 }
 
-const tabs: { id: Category; label: string; icon: ReactNode; color: string }[] = [
-  {
-    id: "web",
-    label: "Web Development",
-    icon: <FaGlobe />,
-    color: "from-blue-500 to-cyan-500",
-  },
-  {
-    id: "mobile",
-    label: "Mobile Development",
-    icon: <FaMobileAlt />,
-    color: "from-violet-500 to-fuchsia-500",
-  },
-  {
-    id: "landing",
-    label: "Landing Pages",
-    icon: <FaRocket />,
-    color: "from-amber-500 to-orange-500",
-  },
+const tabs: { id: Category; label: string }[] = [
+  { id: "web", label: "Web apps" },
+  { id: "mobile", label: "Mobile" },
+  { id: "landing", label: "Landing pages" },
 ];
-
-const tabAccent: Record<
-  Category,
-  { color: string; tag: string; btn: string; border: string; panel: string }
-> = {
-  web: {
-    color: "from-blue-500 to-cyan-500",
-    tag: "text-blue-600 border-blue-100 bg-white",
-    btn: "from-blue-600 to-cyan-600",
-    border: "border-blue-100",
-    panel: "bg-blue-50/40",
-  },
-  mobile: {
-    color: "from-violet-500 to-fuchsia-500",
-    tag: "text-violet-600 border-violet-100 bg-white",
-    btn: "from-violet-600 to-fuchsia-600",
-    border: "border-violet-100",
-    panel: "bg-violet-50/40",
-  },
-  landing: {
-    color: "from-amber-500 to-orange-500",
-    tag: "text-amber-700 border-amber-100 bg-white",
-    btn: "from-amber-500 to-orange-600",
-    border: "border-amber-100",
-    panel: "bg-amber-50/40",
-  },
-};
 
 const emptyTabLabel: Record<Category, string> = {
   web: "web",
   mobile: "mobile",
   landing: "landing page",
 };
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function normalizeTab(value?: string | null): Category {
   if (value === "web" || value === "mobile" || value === "landing") return value;
@@ -88,7 +37,7 @@ function normalizeTab(value?: string | null): Category {
 export default function ProjectsList({ projects }: ProjectsListProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams(); // ✅ called inside the Suspense-wrapped client component
+  const searchParams = useSearchParams();
 
   const [activeTab, setActiveTab] = useState<Category>(
     normalizeTab(searchParams.get("tab"))
@@ -103,6 +52,14 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
     setActiveTab(normalizeTab(searchParams.get("tab")));
   }, [searchParams]);
 
+  useEffect(() => {
+    document.body.style.overflow = previewProject ? "hidden" : "";
+    if (!previewProject) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPreviewProject(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [previewProject]);
+
   const handleTabChange = (tab: Category) => {
     if (tab === activeTab) return;
     setActiveTab(tab);
@@ -113,6 +70,7 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
+  const countFor = (tab: Category) => projects.filter((p) => (p.category ?? "web") === tab).length;
   const filtered = projects.filter((p) => (p.category ?? "web") === activeTab);
 
   const getDisplayImages = (project: ProjectCard) => {
@@ -127,144 +85,146 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
     setPreviewProject(project);
   };
 
-  const activeColor = tabAccent[activeTab].color;
-  const activeCardAccent = tabAccent[activeTab];
+  const previewImages = previewProject ? getDisplayImages(previewProject) : [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mb-12 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl"
-        >
-          My{" "}
-          <span
-            className={`bg-gradient-to-r ${activeColor} bg-clip-text text-transparent transition-all duration-500`}
-          >
-            Projects
-          </span>
-        </motion.h2>
+    <main className="relative min-h-screen overflow-hidden pt-36 md:pt-44">
+      <div aria-hidden className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[600px]" />
 
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: "100px" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className={`mx-auto h-1 rounded-full bg-gradient-to-r ${activeColor} transition-all duration-500`}
-        />
-      </div>
+      <div className="relative mx-auto max-w-6xl px-5 pb-28 md:px-8 md:pb-36">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-end">
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease }}
+              className="mb-8 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-dim"
+            >
+              <span className="text-brand">Work</span>
+              <span className="h-px w-8 bg-line-strong" />
+              {projects.length} projects
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, ease, delay: 0.08 }}
+              className="text-[clamp(3rem,8vw,7rem)] font-medium leading-[0.92] tracking-[-0.045em]"
+            >
+              Selected <span className="font-serif font-normal italic text-dim">work.</span>
+            </motion.h1>
+          </div>
 
-      {/* Tab Bar */}
-      <div className="mb-14 flex justify-center px-2">
-        <div className="relative flex max-w-full flex-wrap items-center justify-center gap-1 rounded-2xl border border-gray-100 bg-white p-1.5 shadow-lg">
-          {tabs.map((tab) => {
-            const isActive = tab.id === activeTab;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                className="relative z-10 flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors duration-200 sm:px-6"
-                style={{ color: isActive ? "white" : "#6b7280" }}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="tab-pill"
-                    className={`absolute inset-0 rounded-xl bg-gradient-to-r ${tab.color} shadow-md`}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10 flex items-center gap-2">
-                  {tab.icon}
-                  {tab.label}
-                </span>
-              </button>
-            );
-          })}
+          {/* Tab Bar */}
+          <div className="flex w-fit items-center gap-1 rounded-full border border-line-strong bg-surface p-1">
+            {tabs.map((tab) => {
+              const isActive = tab.id === activeTab;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`relative rounded-full px-4 py-2 text-sm transition-colors duration-200 ${
+                    isActive ? "text-canvas" : "text-dim hover:text-fg"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="tab-pill"
+                      className="absolute inset-0 rounded-full bg-fg"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    {tab.label}
+                    <span className={`font-mono text-[11px] ${isActive ? "text-canvas/60" : "text-faint"}`}>
+                      {countFor(tab.id)}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Project Cards */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -16 }}
-          transition={{ duration: 0.35 }}
-          className="mx-auto grid max-w-6xl grid-cols-1 gap-6 xl:grid-cols-2"
-        >
-          {filtered.length === 0 ? (
-            <div className="col-span-full py-24 text-center text-lg font-medium text-gray-400">
-              No {emptyTabLabel[activeTab]} projects yet. Stay tuned!
-            </div>
-          ) : (
-            filtered.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: index * 0.08 }}
-                className={`overflow-hidden rounded-3xl border bg-white shadow-lg transition-all duration-300 ${activeCardAccent.border}`}
-              >
-                <div className="p-5 md:p-6">
-                  <div className="relative h-52 w-full overflow-hidden rounded-2xl border border-gray-100">
+        {/* Project Cards */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease }}
+            className="mt-16 grid grid-cols-1 gap-x-5 gap-y-12 md:grid-cols-2"
+          >
+            {filtered.length === 0 ? (
+              <div className="col-span-full rounded-3xl border border-dashed border-line-strong py-24 text-center text-dim">
+                No {emptyTabLabel[activeTab]} projects yet. Stay tuned!
+              </div>
+            ) : (
+              filtered.map((project, index) => (
+                <motion.article
+                  key={project.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease, delay: index * 0.06 }}
+                  className="group"
+                >
+                  <Link
+                    href={`/projects/${project.id}`}
+                    className="relative block aspect-[16/11] overflow-hidden rounded-3xl border border-line bg-surface-2"
+                  >
                     <Image
                       src={project.image_url || fallbackImage}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className={`${project.category === "mobile" ? "object-contain p-10" : "object-cover object-top"} transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]`}
                     />
-                  </div>
+                    <span className="absolute right-4 top-4 grid size-11 translate-y-2 place-items-center rounded-full bg-fg text-canvas opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      <ArrowUpRight className="size-5" />
+                    </span>
+                  </Link>
 
-                  <h3 className="mt-4 text-xl font-bold text-gray-900 md:text-2xl">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-2 line-clamp-2 text-gray-600">
-                    {project.short_description}
-                  </p>
-
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {(project.tags ?? []).slice(0, 4).map((tag) => (
-                      <span
-                        key={tag}
-                        className={`rounded-full border px-3 py-1 text-xs font-medium shadow-sm ${activeCardAccent.tag}`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <button
-                      onClick={() => openPreview(project)}
-                      className={`inline-flex items-center gap-2 rounded-lg bg-gradient-to-r px-4 py-2.5 text-sm font-medium text-white ${activeCardAccent.btn}`}
-                    >
-                      <FaExternalLinkAlt className="text-xs" />
-                      Preview
-                    </button>
-
-                    {project.demo_url && (
-                      <Link
-                        href={project.demo_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white"
-                      >
-                        <FaGlobe />
-                        Live
+                  <div className="mt-6 flex items-start justify-between gap-6">
+                    <div className="min-w-0">
+                      <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-faint">
+                        {String(index + 1).padStart(2, "0")} · {(project.tags ?? []).slice(0, 2).join(" / ")}
+                      </p>
+                      <Link href={`/projects/${project.id}`}>
+                        <h2 className="text-2xl font-medium tracking-tight transition-colors group-hover:text-brand">
+                          {project.title}
+                        </h2>
                       </Link>
-                    )}
+                      <p className="mt-2 line-clamp-2 leading-relaxed text-dim">{project.short_description}</p>
+                    </div>
+                    <div className="flex shrink-0 gap-2">
+                      <button
+                        onClick={() => openPreview(project)}
+                        className="grid size-10 place-items-center rounded-full border border-line-strong text-dim transition-colors hover:bg-surface-2 hover:text-fg"
+                        aria-label={`Quick preview of ${project.title}`}
+                        title="Quick preview"
+                      >
+                        <Eye className="size-4" />
+                      </button>
+                      {project.demo_url && (
+                        <a
+                          href={project.demo_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="grid size-10 place-items-center rounded-full border border-line-strong text-dim transition-colors hover:border-brand hover:bg-brand hover:text-white"
+                          aria-label={`Open ${project.title} live`}
+                          title="Live site"
+                        >
+                          <ArrowUpRight className="size-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))
-          )}
-        </motion.div>
-      </AnimatePresence>
+                </motion.article>
+              ))
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       {/* Preview Modal */}
       <AnimatePresence>
@@ -273,67 +233,80 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999] bg-black/80 p-3 backdrop-blur-sm md:p-6"
+            onClick={() => setPreviewProject(null)}
+            className="fixed inset-0 z-[999] bg-canvas/85 p-3 backdrop-blur-md md:p-6"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${previewProject.title} preview`}
           >
-            <div className="mx-auto h-full w-full max-w-7xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
-              <div className="flex h-14 items-center justify-between border-b border-gray-200 bg-gray-50 px-4 md:px-5">
-                <p className="truncate pr-4 text-sm font-semibold text-gray-800 md:text-base">
-                  {previewProject.title} — Project Preview
-                </p>
+            <motion.div
+              initial={{ y: 30, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0 }}
+              transition={{ duration: 0.45, ease }}
+              onClick={(e) => e.stopPropagation()}
+              className="mx-auto flex h-full w-full max-w-7xl flex-col overflow-hidden rounded-3xl border border-line-strong bg-surface shadow-2xl"
+            >
+              <div className="flex h-14 shrink-0 items-center justify-between border-b border-line px-5">
+                <div className="flex items-center gap-3">
+                  <span className="flex gap-1.5">
+                    <span className="size-2.5 rounded-full bg-line-strong" />
+                    <span className="size-2.5 rounded-full bg-line-strong" />
+                    <span className="size-2.5 rounded-full bg-line-strong" />
+                  </span>
+                  <p className="truncate text-sm text-dim">{previewProject.title}</p>
+                </div>
                 <button
                   onClick={() => setPreviewProject(null)}
-                  className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-gray-800 md:text-sm"
+                  className="grid size-9 place-items-center rounded-full bg-surface-2 text-dim transition-colors hover:text-fg"
+                  aria-label="Close preview"
                 >
-                  <FaTimes className="text-xs" />
-                  Close
+                  <X className="size-4" />
                 </button>
               </div>
 
-              <div className="grid h-[calc(100%-56px)] grid-cols-1 lg:grid-cols-5">
+              <div className="grid min-h-0 flex-1 grid-cols-1 overflow-y-auto lg:grid-cols-5 lg:overflow-hidden">
                 {/* Left: iframe or image gallery */}
-                <div className="border-b border-gray-200 p-4 lg:col-span-3 lg:border-b-0 lg:border-r lg:p-6">
+                <div className="border-b border-line p-4 lg:col-span-3 lg:border-b-0 lg:border-r lg:p-5">
                   {previewProject.demo_url ? (
                     <iframe
                       src={previewProject.demo_url}
                       title={`${previewProject.title} demo`}
-                      className="min-h-[420px] h-full w-full rounded-xl border border-gray-200 bg-gray-50"
+                      className="h-full min-h-[420px] w-full rounded-2xl border border-line bg-canvas"
                       loading="lazy"
                       referrerPolicy="strict-origin-when-cross-origin"
                     />
                   ) : (
                     <div className="flex h-full flex-col">
-                      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+                      <div className="relative min-h-[420px] flex-1 overflow-hidden rounded-2xl border border-line bg-canvas">
                         <Image
-                          src={getDisplayImages(previewProject)[previewImageIndex]}
+                          src={previewImages[previewImageIndex]}
                           alt={`${previewProject.title} preview`}
                           fill
                           className="object-contain"
                         />
                       </div>
 
-                      {getDisplayImages(previewProject).length > 1 && (
+                      {previewImages.length > 1 && (
                         <div className="mt-3 flex items-center justify-center gap-3">
                           <button
                             onClick={() =>
-                              setPreviewImageIndex(
-                                (prev) =>
-                                  (prev - 1 + getDisplayImages(previewProject).length) %
-                                  getDisplayImages(previewProject).length
-                              )
+                              setPreviewImageIndex((prev) => (prev - 1 + previewImages.length) % previewImages.length)
                             }
-                            className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                            className="grid size-10 place-items-center rounded-full border border-line-strong hover:bg-surface-2"
+                            aria-label="Previous image"
                           >
-                            <FaChevronLeft /> Prev
+                            <ChevronLeft className="size-4" />
                           </button>
+                          <span className="font-mono text-xs text-faint">
+                            {previewImageIndex + 1} / {previewImages.length}
+                          </span>
                           <button
-                            onClick={() =>
-                              setPreviewImageIndex(
-                                (prev) => (prev + 1) % getDisplayImages(previewProject).length
-                              )
-                            }
-                            className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                            onClick={() => setPreviewImageIndex((prev) => (prev + 1) % previewImages.length)}
+                            className="grid size-10 place-items-center rounded-full border border-line-strong hover:bg-surface-2"
+                            aria-label="Next image"
                           >
-                            Next <FaChevronRight />
+                            <ChevronRight className="size-4" />
                           </button>
                         </div>
                       )}
@@ -342,28 +315,21 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                 </div>
 
                 {/* Right: details */}
-                <div className="space-y-5 overflow-y-auto p-4 lg:col-span-2 md:p-6">
-                  <p className="text-sm leading-relaxed text-gray-700 md:text-base">
+                <div className="space-y-6 p-5 lg:col-span-2 lg:overflow-y-auto lg:p-8">
+                  <h3 className="text-3xl font-medium tracking-tight">{previewProject.title}</h3>
+                  <p className="leading-relaxed text-dim">
                     {previewProject.long_description || previewProject.short_description}
                   </p>
 
                   {!!previewProject.features?.length && (
-                    <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-                      <h4 className="mb-2 font-semibold text-gray-900">Features</h4>
-                      <ul className="space-y-1 text-sm text-gray-700">
+                    <div>
+                      <h4 className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-faint">Features</h4>
+                      <ul className="space-y-2 text-sm text-dim">
                         {previewProject.features.map((feature) => (
-                          <li key={feature}>- {feature}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {!!previewProject.challenges?.length && (
-                    <div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
-                      <h4 className="mb-2 font-semibold text-gray-900">Challenges</h4>
-                      <ul className="space-y-1 text-sm text-gray-700">
-                        {previewProject.challenges.map((challenge) => (
-                          <li key={challenge}>- {challenge}</li>
+                          <li key={feature} className="flex gap-3">
+                            <span className="mt-2 size-1 shrink-0 rounded-full bg-brand" />
+                            {feature}
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -371,63 +337,66 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
 
                   <div className="flex flex-wrap gap-2">
                     {(previewProject.tags ?? []).map((tag) => (
-                      <span
-                        key={tag}
-                        className={`rounded-full border px-3 py-1 text-xs font-medium shadow-sm ${activeCardAccent.tag}`}
-                      >
+                      <span key={tag} className="rounded-full border border-line-strong px-3 py-1 text-xs text-dim">
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 border-t border-line pt-6">
+                    <Link
+                      href={`/projects/${previewProject.id}`}
+                      className="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-canvas hover:bg-brand hover:text-white"
+                    >
+                      Full case study <ArrowUpRight className="size-4" />
+                    </Link>
                     {previewProject.demo_url && (
-                      <Link
+                      <a
                         href={previewProject.demo_url}
                         target="_blank"
                         rel="noreferrer"
-                        className={`inline-flex items-center gap-2 rounded-lg bg-gradient-to-r px-4 py-2.5 text-sm font-medium text-white ${activeCardAccent.btn}`}
+                        className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
                       >
-                        <FaExternalLinkAlt className="text-xs" /> Live Demo
-                      </Link>
+                        Live site <ArrowUpRight className="size-4" />
+                      </a>
                     )}
                     {previewProject.github_url && (
-                      <Link
+                      <a
                         href={previewProject.github_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white"
+                        className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
                       >
-                        <FaGithub /> Code
-                      </Link>
+                        <Github className="size-4" /> Code
+                      </a>
                     )}
                     {previewProject.google_play_url && (
-                      <Link
+                      <a
                         href={previewProject.google_play_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white"
+                        className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
                       >
                         <FaGooglePlay /> Google Play
-                      </Link>
+                      </a>
                     )}
                     {previewProject.app_store_url && (
-                      <Link
+                      <a
                         href={previewProject.app_store_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-lg bg-slate-800 px-4 py-2.5 text-sm font-medium text-white"
+                        className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
                       >
                         <FaApple /> App Store
-                      </Link>
+                      </a>
                     )}
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 }

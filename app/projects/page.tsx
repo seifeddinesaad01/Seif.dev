@@ -7,7 +7,7 @@ export default function ProjectsPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center text-gray-400">
+        <div className="flex min-h-screen items-center justify-center text-faint">
           Loading projects…
         </div>
       }

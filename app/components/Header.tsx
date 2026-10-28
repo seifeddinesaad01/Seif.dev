@@ -1,20 +1,17 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import {
-  Menu,
-  X,
-  Github,
-  Linkedin,
-} from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import { socials } from '@/Data/data';
+import Logo from './Logo';
 
 const links = [
   { label: 'Home', href: '/' },
+  { label: 'Work', href: '/projects' },
   { label: 'About', href: '/about' },
-  { label: 'Projects', href: '/projects' },
   { label: 'Hire Me', href: '/hire-me' },
 ];
 
@@ -22,126 +19,113 @@ const Header = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const router = useRouter()
 
   useEffect(() => {
-    const onScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }, [isOpen]);
+
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+
   return (
     <>
-      <nav
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-white/70 backdrop-blur-md shadow-sm'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="container mx-auto py-4 px-4 flex items-center justify-between">
-          {/* Logo */}
-          <div className="text-xl font-semibold text-gray-900 cursor-pointer group">
-            <span className="text-blue-500">seif</span><span className='transform transition-all duration-250 ease-out group-hover:pl-1'>.dev</span>
-          </div>
-
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-6">
-            <ul className="flex items-center space-x-4 text-sm font-medium">
-              {links.map(({ label, href }) => {
-                const isActive = pathname === href;
-                return (
-                  <li key={label}>
-                    <Link
-                      href={href}
-                      className={`px-3 py-2 transition-colors ${isActive
-                        ? 'text-blue-500  border-blue-500'
-                        : 'text-muted-foreground hover:text-blue-600 '
-                        }`}
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-            <Button
-              onClick={() => router.push("/hire-me")}
-              className="rounded-md px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white">
-              Get in Touch
-            </Button>
-          </div>
-
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setIsOpen(true)}
-            className="md:hidden focus:outline-none"
-            aria-label="Open menu"
-          >
-            <Menu className="w-6 h-6 text-gray-700" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Sidebar */}
-      <div
-        className={`fixed inset-0 bg-white z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+        <nav
+          className={`mx-auto flex max-w-6xl items-center justify-between rounded-full border px-3 py-2 pl-5 transition-all duration-500 ${
+            isScrolled
+              ? 'border-line-strong bg-canvas/70 shadow-[0_8px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl'
+              : 'border-transparent bg-transparent'
           }`}
-      >
-        <div className="flex justify-between items-center p-4 border-b border-gray-200">
-          <span className="text-xl font-semibold text-gray-900">Menu</span>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="focus:outline-none"
-            aria-label="Close menu"
+        >
+          <Logo />
+
+          <ul className="hidden items-center gap-1 md:flex">
+            {links.map(({ label, href }) => (
+              <li key={label}>
+                <Link
+                  href={href}
+                  className={`relative rounded-full px-4 py-2 text-sm transition-colors ${
+                    isActive(href) ? 'text-fg' : 'text-dim hover:text-fg'
+                  }`}
+                >
+                  {isActive(href) && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 -z-10 rounded-full bg-surface-2"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <Link
+            href="/hire-me#contact"
+            className="hidden items-center gap-1.5 rounded-full bg-fg px-4 py-2 text-sm font-medium text-canvas transition-colors hover:bg-brand hover:text-white md:inline-flex"
           >
-            <X className="w-6 h-6 text-gray-700" />
+            Let&apos;s talk
+            <ArrowUpRight className="size-4" />
+          </Link>
+
+          <button
+            onClick={() => setIsOpen((v) => !v)}
+            className="relative grid size-10 place-items-center rounded-full bg-surface-2 md:hidden"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+          >
+            <span className={`absolute h-px w-4 bg-fg transition-transform duration-300 ${isOpen ? 'rotate-45' : '-translate-y-1'}`} />
+            <span className={`absolute h-px w-4 bg-fg transition-transform duration-300 ${isOpen ? '-rotate-45' : 'translate-y-1'}`} />
           </button>
-        </div>
+        </nav>
+      </header>
 
-        <div className="flex flex-col items-center justify-center h-full space-y-8 text-xl font-medium">
-          {links.map(({ label, href }) => (
-            <Link
-              key={label}
-              href={href}
-              onClick={() => setIsOpen(false)}
-              className={`${pathname === href
-                ? 'text-blue-600 underline'
-                : 'text-gray-800 hover:text-blue-600'
-                }`}
-            >
-              {label}
-            </Link>
-          ))}
-          <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 mt-4">
-            Get in Touch
-          </Button>
-
-          {/* Social Icons */}
-          <div className="flex space-x-6 mt-10">
-            <a
-              href="https://github.com/your-username"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-black"
-            >
-              <Github className="w-6 h-6" />
-            </a>
-            <a
-              href="https://linkedin.com/in/your-username"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-blue-700"
-            >
-              <Linkedin className="w-6 h-6" />
-            </a>
-          </div>
-        </div>
-      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-canvas px-6 pb-10 pt-28 md:hidden"
+          >
+            <ul className="space-y-2">
+              {links.map(({ label, href }, i) => (
+                <motion.li
+                  key={label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Link
+                    href={href}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-baseline gap-4 text-5xl font-medium tracking-tight ${
+                      isActive(href) ? 'text-fg' : 'text-dim'
+                    }`}
+                  >
+                    <span className="font-mono text-xs text-brand">0{i + 1}</span>
+                    {label}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-dim">
+              {socials.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-fg">
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

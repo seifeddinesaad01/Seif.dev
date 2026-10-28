@@ -55,7 +55,7 @@ const ContactForm: React.FC = () => {
 
   return (
     // Set a fixed min-height matching the form’s original height
-    <div className="relative min-h-[600px]">
+    <div className="relative min-h-[560px]">
       <AnimatePresence>
         {submitted && (
           <motion.div
@@ -63,10 +63,10 @@ const ContactForm: React.FC = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
-            className="absolute inset-0 flex flex-col items-center justify-center bg-white bg-opacity-90 p-4 rounded-lg"
+            className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl p-4 text-center"
           >
-            <CheckCircle size={48} className="text-green-500 mb-2" />
-            <p className="text-green-700 font-medium">Submitted successfully!</p>
+            <CheckCircle size={48} className="mb-3 text-brand" />
+            <p className="text-xl font-medium text-fg">Thanks — message received. I'll be in touch soon.</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -78,10 +78,10 @@ const ContactForm: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <Form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Form className="space-y-5">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="mb-2 block font-mono text-xs uppercase tracking-[0.14em] text-dim">
                     Your Name
                   </label>
                   <Field
@@ -89,12 +89,12 @@ const ContactForm: React.FC = () => {
                     id="name"
                     name="name"
                     placeholder="John Doe"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
+                    className="w-full rounded-xl border border-line-strong bg-canvas px-4 py-3 text-fg placeholder:text-faint transition-colors focus:border-brand focus:outline-none"
                   />
-                  <ErrorMessage name="name" component="div" className="text-red-600 text-sm mt-1" />
+                  <ErrorMessage name="name" component="div" className="mt-1.5 text-sm text-red-400" />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="mb-2 block font-mono text-xs uppercase tracking-[0.14em] text-dim">
                     Your Email
                   </label>
                   <Field
@@ -102,21 +102,21 @@ const ContactForm: React.FC = () => {
                     id="email"
                     name="email"
                     placeholder="john@example.com"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
+                    className="w-full rounded-xl border border-line-strong bg-canvas px-4 py-3 text-fg placeholder:text-faint transition-colors focus:border-brand focus:outline-none"
                   />
-                  <ErrorMessage name="email" component="div" className="text-red-600 text-sm mt-1" />
+                  <ErrorMessage name="email" component="div" className="mt-1.5 text-sm text-red-400" />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="engagement" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="engagement" className="mb-2 block font-mono text-xs uppercase tracking-[0.14em] text-dim">
                   Engagement Model
                 </label>
                 <Field
                   as="select"
                   id="engagement"
                   name="engagement"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
+                  className="w-full rounded-xl border border-line-strong bg-canvas px-4 py-3 text-fg placeholder:text-faint transition-colors focus:border-brand focus:outline-none"
                 >
                   <option value="" disabled>
                     Select Engagement Model
@@ -124,18 +124,18 @@ const ContactForm: React.FC = () => {
                   <option value="hourly">Hourly</option>
                   <option value="fixed">Fixed Price</option>
                 </Field>
-                <ErrorMessage name="engagement" component="div" className="text-red-600 text-sm mt-1" />
+                <ErrorMessage name="engagement" component="div" className="mt-1.5 text-sm text-red-400" />
               </div>
 
               <div>
-                <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="budget" className="mb-2 block font-mono text-xs uppercase tracking-[0.14em] text-dim">
                   Budget Range
                 </label>
                 <Field
                   as="select"
                   id="budget"
                   name="budget"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring focus:border-blue-300"
+                  className="w-full rounded-xl border border-line-strong bg-canvas px-4 py-3 text-fg placeholder:text-faint transition-colors focus:border-brand focus:outline-none"
                 >
                   <option value="" disabled>
                     Select Budget Range
@@ -144,11 +144,11 @@ const ContactForm: React.FC = () => {
                   <option value="1000-5000">$1,000 - $5,000</option>
                   <option value="5000+">$5,000+</option>
                 </Field>
-                <ErrorMessage name="budget" component="div" className="text-red-600 text-sm mt-1" />
+                <ErrorMessage name="budget" component="div" className="mt-1.5 text-sm text-red-400" />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="message" className="mb-2 block font-mono text-xs uppercase tracking-[0.14em] text-dim">
                   Your Message
                 </label>
                 <Field
@@ -156,13 +156,13 @@ const ContactForm: React.FC = () => {
                   id="message"
                   name="message"
                   placeholder="Your message here..."
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 h-36 resize-none focus:outline-none focus:ring focus:border-blue-300"
+                  className="w-full h-36 resize-none rounded-xl border border-line-strong bg-canvas px-4 py-3 text-fg placeholder:text-faint transition-colors focus:border-brand focus:outline-none"
                 />
-                <ErrorMessage name="message" component="div" className="text-red-600 text-sm mt-1" />
+                <ErrorMessage name="message" component="div" className="mt-1.5 text-sm text-red-400" />
               </div>
 
-              <Button type="submit" disabled={isSubmitting} className="w-full py-4 font-semibold bg-blue-500 hover:bg-blue-600">
-                {isSubmitting ? 'Submitting...' : 'Submit'}
+              <Button type="submit" disabled={isSubmitting} className="h-auto w-full rounded-full bg-brand py-4 text-base font-medium text-white hover:bg-brand/85">
+                {isSubmitting ? 'Sending…' : 'Send message'}
               </Button>
             </Form>
           )}

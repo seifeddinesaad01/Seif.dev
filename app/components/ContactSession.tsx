@@ -1,71 +1,67 @@
-
-
-// ContactSection.tsx
 "use client";
 import React from 'react';
-import { Zap, Shield, User, ArrowRight, Clock } from 'lucide-react';
-import { SiUpwork } from 'react-icons/si';
-import { Button } from '@/components/ui/button';
+import { ArrowUpRight, Clock, Shield, MessagesSquare } from 'lucide-react';
 import FadeInSection from './FadeInSection';
 import ContactForm from './ContactForm';
+import SectionHeading from './SectionHeading';
+import { UPWORK_URL } from '@/Data/data';
 
-const ContactSection: React.FC = () => {
+const perks = [
+  { icon: Clock, title: 'Quick response', desc: 'Reply within 24 hours, usually much sooner.' },
+  { icon: Shield, title: 'Client-first', desc: 'Clear pricing. Pay for results, no hidden costs.' },
+  { icon: MessagesSquare, title: 'Direct line', desc: 'You talk to the person building your product.' },
+];
+
+const ContactSection = ({ index = '05' }: { index?: string }) => {
   return (
-    <FadeInSection>
-      <section id="contact" className="max-w-7xl mx-auto px-6 md:px-8 lg:px-16 py-16 lg:py-24">
-        <div className="flex flex-col lg:flex-row lg:space-x-20 space-y-12 lg:space-y-0">
-          {/* Left Side */}
-          <div className="lg:w-1/2">
-            <span className="inline-flex items-center bg-blue-100 text-blue-500 rounded-full px-4 py-1 text-sm font-medium mb-4">
-              <Zap className="w-5 h-5 mr-2" />
-              Let&apos;s Create Something Amazing
-            </span>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">Start Your Project Today</h2>
-            <p className="text-gray-600 mb-8">
-              Transform your vision into reality with access to expert level full-stack development
-            </p>
-            <ul className="space-y-6">
-              {[
-                { icon: Clock, title: 'Quick Response Time', desc: 'Get a response within 24 hours', colorBg: 'bg-indigo-100', color: 'text-indigo-500' },
-                { icon: Shield, title: 'Client First Approach', desc: 'Only pay for results. No hidden costs.', colorBg: 'bg-purple-100', color: 'text-purple-500' },
-                { icon: User, title: 'Dedicated Support', desc: 'High level of commitment. Expert level communication throughout the project', colorBg: 'bg-yellow-100', color: 'text-yellow-500' }
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-start">
-                  <div className={`${item.colorBg} ${item.color} rounded-lg p-3 mr-4 flex-shrink-0`}>
-                    <item.icon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <p className="text-gray-600">{item.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-12">
-              <p className="text-gray-700 font-medium mb-4">Also Available On</p>
-              <Button
-                variant="outline"
-                onClick={() => window.open('https://www.upwork.com/freelancers/seifeddines01', '_blank')}
-                className="flex items-center cursor-pointer"
-              >
-                <SiUpwork className="w-5 h-5 mr-2 text-green-600" />
-                Upwork Profile
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
+    <section id="contact" className="scroll-mt-24 border-t border-line">
+      <div className="mx-auto grid max-w-6xl gap-16 px-5 py-28 md:px-8 md:py-36 lg:grid-cols-[1fr_1.15fr]">
+        <div>
+          <SectionHeading
+            index={index}
+            label="Contact"
+            title={
+              <>
+                Have an idea?{' '}
+                <span className="font-serif font-normal italic text-brand">Let&apos;s build it.</span>
+              </>
+            }
+            description="Tell me a bit about your project and I'll get back to you with next steps and a rough plan."
+          />
 
-          {/* Right Side (Form) */}
-          <div className="lg:w-1/2">
-            <div className="p-1 rounded-3xl bg-gradient-to-br from-pink-500 to-blue-600">
-              <div className="bg-white rounded-3xl p-8 lg:p-10">
-                <ContactForm />
-              </div>
-            </div>
-          </div>
+          <ul className="mt-12 space-y-6">
+            {perks.map((item) => (
+              <li key={item.title} className="flex items-start gap-4">
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-line-strong text-brand">
+                  <item.icon className="size-4" />
+                </span>
+                <div>
+                  <h3 className="font-medium">{item.title}</h3>
+                  <p className="text-sm text-dim">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={UPWORK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-12 inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm transition-colors hover:bg-surface-2"
+          >
+            <span className="size-2 rounded-full bg-green-400" />
+            Also available on Upwork
+            <ArrowUpRight className="size-4 text-dim transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
         </div>
-      </section>
-    </FadeInSection>
+
+        <FadeInSection>
+          <div className="rounded-3xl border border-line bg-surface p-6 md:p-10">
+            <ContactForm />
+          </div>
+        </FadeInSection>
+      </div>
+    </section>
   );
 };
 

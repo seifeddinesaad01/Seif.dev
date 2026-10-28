@@ -1,68 +1,32 @@
-// app/projects/[id]/page.tsx (or your ProjectDetailPage file)
 "use client";
 import { PROJECTS } from "@/Data/projects";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import ProjectDetails from "../components/ProjectDetails";
 
 export default function ProjectDetailPage() {
-  const router = useRouter();
   const params = useParams();
-  const [project, setProject] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const project = PROJECTS.find((p) => p.id === id) ?? null;
 
-  useEffect(() => {
-    if (!id) {
-      setError("No project id provided");
-      setLoading(false);
-      return;
-    }
-
-    const proj = PROJECTS.find((p) => p.id === id) ?? null;
-    if (!proj) {
-      setError("Project not found");
-    } else {
-      setProject(proj);
-    }
-    setLoading(false);
-  }, [id]);
-
-  const handleClose = () => {
-    router.push("/projects");
-  };
-
-  if (loading) {
+  if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-        <button
-          onClick={handleClose}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+      <main className="flex min-h-screen flex-col items-center justify-center gap-6 px-5 text-center">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-brand">404</p>
+        <h1 className="text-4xl font-medium tracking-tight">Project not found</h1>
+        <Link
+          href="/projects"
+          className="rounded-full border border-line-strong px-5 py-2.5 text-sm hover:bg-surface-2"
         >
-          Back to Projects
-        </button>
-      </div>
+          Back to projects
+        </Link>
+      </main>
     );
   }
-
-  if (!project) return null;
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <ProjectDetails project={project} onClose={handleClose} />
-    </div>
+    <main className="min-h-screen">
+      <ProjectDetails project={project} />
+    </main>
   );
 }
