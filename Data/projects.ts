@@ -4,6 +4,126 @@ import { ProjectCard } from "@/app/projects/types/project";
 
 export const PROJECTS: ProjectCard[] = [
   {
+    idx: 21,
+    id: "5c8e2f47-1d93-4a6b-b0e7-3f9a6d2c8b14",
+    title: "ChessBridge",
+    short_description:
+      "Marketplace connecting chess students with verified coaches: coach discovery, profiles with hourly rates, messaging, and Stripe payments, built with Next.js.",
+    long_description:
+      "Built ChessBridge, a two-sided marketplace where chess students find a coach who fits their goals, schedule, and learning style. Students browse coaches by specialty and hourly rate and message them directly, while coaches sign up to list their expertise and get paid through Stripe. The product runs on Next.js and Tailwind CSS with a clean, approachable interface aimed at players from beginners to tournament competitors.",
+    image_url: "/assets/chessbridge.webp",
+    demo_url: "https://www.chessbridge.com",
+    github_url: "",
+    tags: [
+      "Next.js",
+      "Stripe",
+      "Tailwind CSS",
+      "Marketplace",
+    ],
+    challenges: [
+      "Designing for two audiences, students and coaches, with separate sign-up paths",
+      "Handling marketplace payments between students and coaches with Stripe",
+      "Making coach discovery easy to scan by specialty and price",
+    ],
+    features: [
+      "Coach browsing with specialties and hourly rates",
+      "Coach profiles with credentials such as FIDE titles",
+      "Direct messaging between students and coaches",
+      "Become-a-coach onboarding flow",
+      "Stripe-powered payments",
+    ],
+    technologies:
+      '[{"name": "Next.js", "description": "App frontend and server routes"}, {"name": "Stripe", "description": "Marketplace payments between students and coaches"}, {"name": "Tailwind CSS", "description": "Utility-first UI styling"}]',
+    timeline: "Completed",
+    team: "Solo / client project",
+    accent: "#2f6fdf",
+    category: "web",
+    gallery_urls: [],
+    reflection:
+      "A marketplace only works if both sides trust it. Clear coach credentials, upfront pricing, and a simple way to start a conversation did more for conversion than extra features would have.",
+    created_at: "2026-10-31 00:00:00+00",
+  },
+  {
+    idx: 20,
+    id: "e3a91c57-2b8d-4f06-9d4e-7c1b5a8f2e94",
+    title: "Ascend Listings",
+    short_description:
+      "Review management platform for monitoring, responding to, and growing reviews across Google, Facebook, Yelp and more, built with React and FastAPI.",
+    long_description:
+      "Built Ascend Listings, a review management platform that brings a business's reviews from Google, Facebook, Yelp and other sites into a single dashboard. Businesses can monitor new reviews, reply from one place, and work on growing their rating over time. The product is a React frontend backed by a Python FastAPI service, with email/password and Google sign-in.",
+    image_url: "/assets/ascend-listings.webp",
+    demo_url: "https://ascendlistings.com",
+    github_url: "",
+    tags: [
+      "React",
+      "FastAPI",
+      "Python",
+      "SaaS",
+      "Reputation Management",
+    ],
+    challenges: [
+      "Bringing reviews from several platforms into one consistent dashboard",
+      "Designing a reply workflow that keeps track of which reviews have been answered",
+      "Supporting both Google sign-in and email/password accounts",
+    ],
+    features: [
+      "Unified review feed across Google, Facebook, Yelp and more",
+      "Reply to reviews from a single dashboard with replied status",
+      "Google OAuth and email/password authentication",
+      "Branded split-screen sign-in experience",
+    ],
+    technologies:
+      '[{"name": "React", "description": "Single-page frontend for the dashboard and auth flows"}, {"name": "FastAPI", "description": "Python API serving reviews, accounts, and replies"}, {"name": "Python", "description": "Backend services and integrations"}]',
+    timeline: "Completed",
+    team: "Solo / client project",
+    accent: "#3e3a6b",
+    category: "web",
+    gallery_urls: [],
+    reflection:
+      "Review management is about making a scattered, daily chore feel manageable. Keeping every platform in one feed with a clear replied/not-replied state mattered more than any single feature.",
+    created_at: "2026-10-31 00:00:00+00",
+  },
+  {
+    idx: 19,
+    id: "9f2c6d18-4a7e-4b3c-8e51-d6a0b7c3f925",
+    title: "Art in Heli",
+    short_description:
+      "Squarespace portfolio and enquiry site for Estonian mixed media artist Heli Mangel: available work, commissions, and an about-the-artist story.",
+    long_description:
+      "Designed and built the website for Art in Heli, the studio of Heli Mangel, an Estonian mixed media artist based in Cyprus. The site uses an editorial gallery feel, with a warm off-white canvas, a classic serif headline, and generous space that lets the artwork lead. Visitors can browse available work, learn how commissions work, read about the artist, and send an enquiry, all on Squarespace so the artist can add and update pieces without a developer.",
+    image_url: "/assets/art-in-heli.webp",
+    demo_url: "https://www.artinheli.studio",
+    github_url: "",
+    tags: [
+      "Squarespace",
+      "Portfolio",
+      "Artist Website",
+      "Web Design",
+      "Responsive Design",
+    ],
+    challenges: [
+      "Letting the artwork lead while keeping navigation and enquiries clear",
+      "Customizing Squarespace to achieve an editorial gallery look",
+      "Keeping the site easy for the artist to update without a developer",
+    ],
+    features: [
+      "Editorial hero with featured artwork and serif typography",
+      "Available work gallery",
+      "Commissions page with a clear path to enquire",
+      "About the artist story and enquiry contact",
+    ],
+    technologies:
+      '[{"name": "Squarespace", "description": "Hosted site builder the artist manages directly"}, {"name": "Custom CSS", "description": "Typography and layout refinements beyond the template"}]',
+    timeline: "Completed",
+    team: "Solo / client project",
+    accent: "#1f5f63",
+    category: "landing",
+    gallery_urls: [],
+    reflection:
+      "For an artist's site the design should step back. Restrained typography, a quiet palette, and plenty of space made the paintings the focus, and building on Squarespace kept the artist in control of the catalogue.",
+    created_at: "2026-10-31 00:00:00+00",
+  },
+  {
     idx: 18,
     id: "b7d3e5a2-9c41-4f6e-8a1d-2e6c9f0b4d73",
     title: "Chimney Liner Pro",
