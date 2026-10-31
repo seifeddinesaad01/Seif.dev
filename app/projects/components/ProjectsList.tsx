@@ -8,6 +8,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Eye, Github, X } from "lucide-react";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 import type { ProjectCard } from "../types/project";
+import BrowserThumb from "@/app/components/BrowserThumb";
 
 type Category = "web" | "mobile" | "landing";
 
@@ -172,13 +173,23 @@ export default function ProjectsList({ projects }: ProjectsListProps) {
                     href={`/projects/${project.id}`}
                     className="relative block aspect-[16/11] overflow-hidden rounded-3xl border border-line bg-surface-2"
                   >
-                    <Image
-                      src={project.image_url || fallbackImage}
-                      alt={project.title}
-                      fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      className={`${project.category === "mobile" ? "object-contain p-10" : "object-cover object-top"} transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]`}
-                    />
+                    {project.accent && project.image_url ? (
+                      <BrowserThumb
+                        src={project.image_url}
+                        alt={project.title}
+                        accent={project.accent}
+                        url={project.demo_url}
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                      />
+                    ) : (
+                      <Image
+                        src={project.image_url || fallbackImage}
+                        alt={project.title}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className={`${project.category === "mobile" ? "object-contain p-10" : "object-cover object-top"} transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]`}
+                      />
+                    )}
                     <span className="absolute right-4 top-4 grid size-11 translate-y-2 place-items-center rounded-full bg-fg text-canvas opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                       <ArrowUpRight className="size-5" />
                     </span>

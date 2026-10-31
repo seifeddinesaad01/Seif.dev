@@ -20,6 +20,8 @@ export interface ProjectCard {
   reflection?: string;
   created_at?: string;
   category?: "web" | "mobile" | "landing" | "shopify";
+  // Brand colour; when set, the card shows the screenshot framed in a browser window on this colour.
+  accent?: string;
 
 }
 export type ProjectDetails = ProjectCard;
