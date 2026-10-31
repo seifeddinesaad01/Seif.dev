@@ -4,6 +4,48 @@ import { ProjectCard } from "@/app/projects/types/project";
 
 export const PROJECTS: ProjectCard[] = [
   {
+    idx: 18,
+    id: "b7d3e5a2-9c41-4f6e-8a1d-2e6c9f0b4d73",
+    title: "Chimney Liner Pro",
+    short_description:
+      "BigCommerce store for chimney liners and parts: category mega-menu, keyword search, a promo hero carousel, and kit-based product merchandising.",
+    long_description:
+      "Built the BigCommerce storefront for Chimney Liner Pro, an online retailer of chimney liner kits, stainless steel liners, caps, dampers, and repair products. The theme pairs the brand's navy and red with a persistent categories sidebar, category-filtered keyword search, and a hero carousel for the M-Flex liner line alongside quick links to the Standard Tee, Fireplace Insert, and Pellet/Corn kits. Trust messaging (free shipping, lifetime warranty, money-back guarantee) and help content like Q&A, resources, and shipping & returns are surfaced throughout to support buyers through a technical purchase.",
+    image_url: "/assets/chimney-liner-pro.webp",
+    demo_url: "https://chimney-liner-pro.mybigcommerce.com",
+    github_url: "",
+    tags: [
+      "BigCommerce",
+      "E-Commerce",
+      "Stencil",
+      "Handlebars",
+      "SCSS",
+      "Retail",
+    ],
+    challenges: [
+      "Organizing a large technical catalog so buyers find the right liner, kit, or part quickly",
+      "Building trust for a high-consideration DIY purchase without cluttering the storefront",
+      "Keeping category navigation and search usable across desktop and mobile",
+    ],
+    features: [
+      "Persistent categories sidebar with expandable subcategories",
+      "Category-filtered keyword search with top-search suggestions",
+      "Promo hero carousel with kit quick links (Standard Tee, Fireplace Insert, Pellet/Corn)",
+      "Trust messaging for free shipping, lifetime warranty, and money-back guarantee",
+      "Help content: Q&A, resources, blog, shipping & returns",
+    ],
+    technologies:
+      '[{"name": "BigCommerce", "description": "Hosted e-commerce platform for catalog, cart, and checkout"}, {"name": "Stencil", "description": "BigCommerce theme framework"}, {"name": "Handlebars", "description": "Storefront templates"}, {"name": "SCSS", "description": "Custom brand styling"}]',
+    timeline: "Completed",
+    team: "Solo / client project",
+    accent: "#0c3b6e",
+    category: "web",
+    gallery_urls: [],
+    reflection:
+      "Selling chimney liners online is mostly about reducing uncertainty: clear categories, kits that bundle the right parts, and visible guarantees. The work focused on making a big, technical catalog feel easy to shop.",
+    created_at: "2026-10-31 00:00:00+00",
+  },
+  {
     idx: 17,
     id: "4e7b2c91-6a3d-4f58-9c1e-8b2d7a5f3e60",
     title: "Traverse City Marketing Co.",
