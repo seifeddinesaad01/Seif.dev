@@ -50,8 +50,8 @@ export const PROJECTS: ProjectCard[] = [
     short_description:
       "Review management platform for monitoring, responding to, and growing reviews across Google, Facebook, Yelp and more, built with React and FastAPI.",
     long_description:
-      "Built Ascend Listings, a review management platform that brings a business's reviews from Google, Facebook, Yelp and other sites into a single dashboard. Businesses can monitor new reviews, reply from one place, and work on growing their rating over time. The product is a React frontend backed by a Python FastAPI service, with email/password and Google sign-in.",
-    image_url: "/assets/ascend-listings.webp",
+      "Built Ascend Listings, a review management platform that brings a business's reviews from Google, Facebook, Yelp and other sites into a single dashboard. Businesses can monitor new reviews, reply from one place, and work on growing their rating over time. The product is a React frontend backed by a Python FastAPI service, with email/password and Google sign-in. The dashboard shows the overall rating, reply rate, and review-request conversion at a glance, highlights low ratings that need a reply, and surfaces reviews with policy violations for dispute.",
+    image_url: "/assets/ascend-listings-dashboard.webp",
     demo_url: "https://ascendlistings.com",
     github_url: "",
     tags: [
@@ -68,7 +68,10 @@ export const PROJECTS: ProjectCard[] = [
     ],
     features: [
       "Unified review feed across Google, Facebook, Yelp and more",
-      "Reply to reviews from a single dashboard with replied status",
+      "Dashboard with overall rating, new reviews, reply rate, and request-to-review conversion",
+      "Reply to reviews and flag low ratings that need attention",
+      "Dispute workflow that surfaces reviews with policy violations",
+      "Review requests with QR codes and a Road to 4.9 rating goal tracker",
       "Google OAuth and email/password authentication",
       "Branded split-screen sign-in experience",
     ],
@@ -76,9 +79,12 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "React", "description": "Single-page frontend for the dashboard and auth flows"}, {"name": "FastAPI", "description": "Python API serving reviews, accounts, and replies"}, {"name": "Python", "description": "Backend services and integrations"}]',
     timeline: "Completed",
     team: "Solo / client project",
-    accent: "#3e3a6b",
+    accent: "#e2475b",
     category: "web",
-    gallery_urls: [],
+    gallery_urls: [
+      "/assets/ascend-listings-dashboard.webp",
+      "/assets/ascend-listings.webp",
+    ],
     reflection:
       "Review management is about making a scattered, daily chore feel manageable. Keeping every platform in one feed with a clear replied/not-replied state mattered more than any single feature.",
     created_at: "2026-10-31 00:00:00+00",
