@@ -4,6 +4,48 @@ import { ProjectCard } from "@/app/projects/types/project";
 
 export const PROJECTS: ProjectCard[] = [
   {
+    idx: 17,
+    id: "4e7b2c91-6a3d-4f58-9c1e-8b2d7a5f3e60",
+    title: "Traverse City Marketing Co.",
+    short_description:
+      "Marketing agency website for a Northern Michigan firm: editorial hero, service tracks, a field-notes journal, and a discovery-call contact form, built with Next.js.",
+    long_description:
+      "Designed and built the website for Traverse City Marketing Co., a Northern Michigan agency offering fractional marketing leadership to wineries, hospitality, manufacturers, and professional services. The site pairs a full-bleed photographic hero and serif headline with a torn-paper transition into four service tracks (Strategic Partnerships, Tactical Engagements, AI Business Integration, Sponsorship Strategy), each with its own page and intent-based CTA. A TCM Journal section surfaces case studies and field notes, and every path ends in a discovery-call contact form.",
+    image_url: "/assets/traverse-city-marketing.webp",
+    accent: "#3d5146",
+    demo_url: "https://www.traversecitymarketing.com",
+    github_url: "",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Landing Page",
+      "Agency",
+      "Marketing",
+    ],
+    challenges: [
+      "Giving a small local agency a premium, editorial feel without heavy page weight",
+      "Structuring four distinct service offers so each visitor finds their entry point quickly",
+      "Keeping large photographic sections sharp and fast across screen sizes",
+    ],
+    features: [
+      "Full-bleed photo hero with serif headline and torn-paper section transition",
+      "Four service tracks with dedicated pages and intent-based CTAs",
+      "TCM Journal with case studies and field notes",
+      "Discovery-call contact form and persistent Contact CTA",
+      "Responsive navigation with mobile menu",
+    ],
+    technologies:
+      '[{"name": "Next.js", "description": "App Router site with per-service pages and journal routes"}, {"name": "TypeScript", "description": "Typed components and content"}, {"name": "Tailwind CSS", "description": "Custom brand styling with editorial typography"}, {"name": "Vercel", "description": "Hosting and deployment"}]',
+    timeline: "Completed",
+    team: "Solo / client project",
+    category: "landing",
+    gallery_urls: [],
+    reflection:
+      "The brief was to make a local agency look as considered as the work it sells. Leaning on strong photography, a serif display face, and a few tactile details like the torn-paper edge did more for the brand than extra sections would have, while a clear service-to-contact path kept the site focused on booking calls.",
+    created_at: "2026-10-31 00:00:00+00",
+  },
+  {
     idx: 16,
     id: "8d54f733-5f59-439a-84bd-ffcd8d950899",
     title: "Callixa Sales Rep Portal",
@@ -45,6 +87,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "App Router frontend with server actions and host-aware routing"}, {"name": "TypeScript", "description": "Strict typing across portal flows and domain logic"}, {"name": "Supabase", "description": "Postgres, RLS, Storage, and service-role privileged writes"}, {"name": "Tailwind CSS", "description": "Utility-first UI for multi-role ops surfaces"}, {"name": "next-intl", "description": "EN / AR RTL + ES / FR / ZH localization"}, {"name": "Postmark", "description": "Transactional email for magic links and ops alerts"}, {"name": "Slack Bot API", "description": "DMs and ops alerting with deduped outbox"}, {"name": "Zod", "description": "Runtime validation for forms and server inputs"}, {"name": "Vitest", "description": "Integration tests for milestone flows"}, {"name": "Playwright", "description": "E2E and host routing coverage"}]',
     timeline: "Completed — M1/M2 portal",
     team: "Solo / Callixa",
+    accent: "#4c35b5",
     category: "web",
     gallery_urls: [],
     reflection:
@@ -90,6 +133,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "React", "description": "TypeScript frontend with Vite and React Router"}, {"name": "Supabase", "description": "Postgres, Auth, Storage, RLS, and Edge Functions (Deno)"}, {"name": "Airwallex", "description": "Payment intents, webhooks, and entitlement reconcile"}, {"name": "Postmark", "description": "OTP and transactional email"}, {"name": "Calendly", "description": "Booking API sync and webhooks"}, {"name": "OpenAI", "description": "Staff call write-up drafts with human approval"}, {"name": "Framer Motion", "description": "Motion for UI presence and hierarchy"}, {"name": "Vitest", "description": "Scoring parity, catalog, and flow tests"}, {"name": "Vercel", "description": "Frontend hosting with Vite env configuration"}]',
     timeline: "Completed — V2.1 launch",
     team: "Solo / client advisory firm",
+    accent: "#6b6256",
     category: "web",
     gallery_urls: [
       "/assets/base-plus-one-1.png",
@@ -133,6 +177,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "Frontend framework for the SaaS web experience"}, {"name": "Supabase", "description": "Backend services and data workflows"}, {"name": "Node.js", "description": "Server-side logic and integrations"}, {"name": "Tailwind CSS", "description": "Utility-first UI styling"}]',
     timeline: "Ongoing",
     team: "Solo Project",
+    accent: "#7c3aed",
     category: "web",
     gallery_urls: [],
     reflection:
@@ -209,6 +254,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "MongoDB", "description": "Document database for school data"}, {"name": "Express.js", "description": "Backend API layer"}, {"name": "React", "description": "Frontend UI and dashboards"}, {"name": "Node.js", "description": "Server runtime and application logic"}]',
     timeline: "Completed",
     team: "Solo Project",
+    accent: "#1f6fd6",
     category: "web",
     gallery_urls: [],
     reflection:
@@ -245,6 +291,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "React framework for SSR & API routes"}, {"name": "Supabase", "description": "PostgreSQL database & auth"}, {"name": "Tailwind CSS", "description": "Utility-first CSS framework"}, {"name": "AWS", "description": "Hosting & serverless functions"}, {"name": "Docker", "description": "Containerization for consistent deployments"}, {"name": "Socket.io", "description": "Real-time WebSocket communication"}]',
     timeline: "3 months (Q2 2025)",
     team: "Solo Project",
+    accent: "#0e7490",
     category: "web",
     gallery_urls: [
       "https://uvzufczgnlazuqyhvhcx.supabase.co/storage/v1/object/public/showcase/1.png",
@@ -288,6 +335,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "React framework for SSR and API routes"}, {"name": "Firebase", "description": "Realtime database and authentication"}, {"name": "Tailwind CSS", "description": "Utility-first CSS framework"}, {"name": "Stripe", "description": "Payment processing for bookings"}, {"name": "Mapbox", "description": "Interactive maps and location services"}, {"name": "React Query", "description": "Data fetching and caching"}]',
     timeline: "2 months ",
     team: "Solo Project",
+    accent: "#3f8f78",
     category: "web",
     gallery_urls: [
       "/assets/golobe.webp",
@@ -330,6 +378,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "React framework for server-side rendering"}, {"name": "Stripe API", "description": "Payment processing and security"}, {"name": "Tailwind CSS", "description": "Utility-first CSS framework"}, {"name": "PostgreSQL", "description": "Relational database for product data"}, {"name": "Redis", "description": "Caching and real-time inventory management"}, {"name": "Vercel", "description": "Deployment platform with edge caching"}]',
     timeline: "6 months (Q2 2023)",
     team: "Solo Project",
+    accent: "#1d4ed8",
     category: "web",
     gallery_urls: [
       "https://uvzufczgnlazuqyhvhcx.supabase.co/storage/v1/object/public/pesocomidbue//a.jpg",
@@ -386,6 +435,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Next.js", "description": "React framework for SSR and API routes"}, {"name": "Firebase", "description": "Realtime database and authentication"}, {"name": "Tailwind CSS", "description": "Utility-first CSS framework"}, {"name": "Stripe", "description": "Payment processing for bookings"}, {"name": "Mapbox", "description": "Interactive maps and location services"}, {"name": "React Query", "description": "Data fetching and caching"}]',
     timeline: "3 Days",
     team: "Solo",
+    accent: "#14907f",
     category: "landing",
     gallery_urls: [
       "/assets/lp.webp",
@@ -471,6 +521,7 @@ export const PROJECTS: ProjectCard[] = [
       '[{"name": "Landing Page", "description": "Single-focus website for showcasing a company and its offer"}, {"name": "Responsive Design", "description": "Adaptive layout across device sizes"}, {"name": "Modern UI", "description": "Clean visual language for clarity and trust"}]',
     timeline: "Completed",
     team: "Solo Project",
+    accent: "#b0246f",
     category: "landing",
     gallery_urls: [],
     reflection:
@@ -490,6 +541,7 @@ export const PROJECTS: ProjectCard[] = [
 
     github_url: "",
     tags: ["Next.js", "Landing Page", "EdTech", "Marketing"],
+    accent: "#4d9a2a",
     category: "landing",
     gallery_urls: [],
     created_at: "2026-04-10 00:00:00+00",
@@ -508,6 +560,7 @@ export const PROJECTS: ProjectCard[] = [
     demo_url: "https://www.anrok.com/",
     github_url: "",
     tags: ["Webflow", "Landing Page", "B2B", "SaaS"],
+    accent: "#2a2f6b",
     category: "landing",
     gallery_urls: [],
     created_at: "2026-04-10 00:00:00+00",
@@ -525,6 +578,7 @@ export const PROJECTS: ProjectCard[] = [
     demo_url: "https://landingpage.tella.com/",
     github_url: "",
     tags: ["Framer", "Landing Page", "Video", "Product"],
+    accent: "#6d4aff",
     category: "landing",
     gallery_urls: [],
     created_at: "2026-04-10 00:00:00+00",

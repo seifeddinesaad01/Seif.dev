@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import BrowserThumb from './BrowserThumb'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { PROJECTS } from '@/Data/projects'
@@ -47,14 +48,26 @@ const FeaturedWork = () => {
               className="group block overflow-hidden rounded-3xl border border-line bg-surface transition-colors duration-300 hover:border-line-strong"
             >
               <div className={`relative overflow-hidden bg-surface-2 ${i % 3 === 0 ? 'aspect-[16/8]' : 'aspect-[16/11]'}`}>
-                <Image
-                  src={project.image_url!}
-                  alt={project.title}
-                  fill
-                  sizes="(min-width: 768px) 70vw, 100vw"
-                  className="object-cover object-top transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-canvas/70 via-transparent to-transparent opacity-80" />
+                {project.accent ? (
+                  <BrowserThumb
+                    src={project.image_url!}
+                    alt={project.title}
+                    accent={project.accent}
+                    url={project.demo_url}
+                    sizes="(min-width: 768px) 70vw, 100vw"
+                  />
+                ) : (
+                  <>
+                    <Image
+                      src={project.image_url!}
+                      alt={project.title}
+                      fill
+                      sizes="(min-width: 768px) 70vw, 100vw"
+                      className="object-cover object-top transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-canvas/70 via-transparent to-transparent opacity-80" />
+                  </>
+                )}
                 <span className="absolute right-5 top-5 grid size-11 translate-y-2 place-items-center rounded-full bg-fg text-canvas opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   <ArrowUpRight className="size-5" />
                 </span>
